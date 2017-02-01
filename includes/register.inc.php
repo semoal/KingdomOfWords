@@ -1,9 +1,9 @@
 <?php
 include_once 'db_connect.php';
 include_once 'psl-config.php';
-
+session_start();
+$_SESSION["email"]=$_POST['email'];
 $error_msg = "";
-
 if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
     // Sanitize and validate the data passed in
     $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
@@ -58,7 +58,11 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
                 exit();
             }
         }
+        
         header('Location: ./register_success.php');
         exit();
+        
+        
     }
 }
+?>

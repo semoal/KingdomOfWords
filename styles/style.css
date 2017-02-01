@@ -34,6 +34,10 @@ body:after {
     z-index: -1;
 }
 
+.label-right {
+    float:right !important;
+}
+
 /* Imagen logo para ventana 1 */
 .img-thumbnail {
     display: inline-block;
