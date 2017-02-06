@@ -1,0 +1,17 @@
+¿Qué premiada serie de televisión tiene como protagonista a un publicista?,Mad Men-Shameless-Juego de Tronos-Downton Abbey,Mad men,Entretenimiento
+¿Como se llamaba la protagonista femenina de la serie de televisión Scrubs?,Elliot-Sarah-Jordan-Molly,Elliot,Entretenimiento
+¿Cómo se llamaba el personaje que interpretaba John Travolta en Grease?,Danny Puño-Danny Zuko-Danny Grease-Danny Chulo,Danny Zuko,Entretenimiento
+¿En qué año se estrenó la película de Disney Pinocho?,1940-1950-1952-1946,1940,Entretenimiento
+¿En qué país nació la Bauhaus?,Alemania-Holanda-Rusia-Estados Unidos,Alemania,Entretenimiento
+
+
+create table profile_info(
+idProfile INT not null AUTO_INCREMENT,
+user VARCHAR(255) not null,
+level INT not null,
+gooAns INT not null,
+answers INT not null,
+picture VARCHAR(255) not null,
+nextTip DATE not null,
+primary key (idProfile)
+);

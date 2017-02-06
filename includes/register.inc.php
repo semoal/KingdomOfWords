@@ -58,6 +58,18 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
                 exit();
             }
         }
+        $initLevel=1;
+        $initAns=0;
+        $initGAns=0;
+        $initPic="https://kingdomwords-kiatoski.c9users.io/img/default_avatar.png";
+        if($insert_profile=$mysqli->prepare("INSERT INTO profile_info (user, level, gooAns, answers, picture) VALUES (?, ?, ?, ?, ?)")) {
+            $insert_profile->bind_param('siiis', $username, $initLevel, $initGAns, $initAns, $initPic);
+            if (!$insert_profile->execute()) {
+                header('Location: ../error.php?err=Registration failure: INSERT PROFILE');
+                exit();
+            }
+            
+        }
         
         header('Location: ./register_success.php');
         exit();

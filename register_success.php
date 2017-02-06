@@ -6,7 +6,7 @@
     $mail = new PHPMailer;
     $mail->isSMTP();
     //$mail->SMTPDebug = 2; //cambiar al 0 cuando o pasemos a prod
-    $mail->Debugoutput = 'html';
+    //$mail->Debugoutput = 'html';
     $mail->Host = 'smtp.gmail.com';
     $mail->Port = 587;
     $mail->SMTPSecure = 'tls';
