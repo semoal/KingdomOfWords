@@ -20,8 +20,9 @@ function sec_session_start() {
 
     // Sets the session name to the one set above.
     session_name($session_name);
-
+    //echo 'old username: '.$_SESSION["username"];
     session_start();            // Start the PHP session 
+    //echo 'new username: '.$_SESSION["username"];
     session_regenerate_id();    // regenerated the session, delete the old one. 
 }
 

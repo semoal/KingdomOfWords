@@ -1,12 +1,11 @@
 <?php 
    
    include_once 'includes/db_connect.php';
-   include_once 'includes/psl-config.php';
    include_once 'includes/functions.php';
    sec_session_start();
    $prep_stmt = 'SELECT points, picture, gooAns, answers, level FROM profile_info WHERE user=?';
    $stmt = $mysqli->prepare($prep_stmt);
-    
+   
     if ($stmt) {
         $stmt->bind_param('s', $_SESSION["username"]);
         $stmt->execute();
@@ -97,7 +96,7 @@
          <!-- All view --> 
          <div class="container">
             <div class="navbar-header hidden-xs">
-               <a class="navbar-brand" href="profile.php">Kingdom of Words</a>
+               <a class="navbar-brand" href="index.php?">Kingdom of Words</a>
             </div>
             <ul class="nav navbar-nav navbar-right mobile-bar">
                 <li>

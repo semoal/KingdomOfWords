@@ -1,15 +1,16 @@
 <?php
    include_once 'includes/db_connect.php';
    include_once 'includes/functions.php';
-   include_once 'includes/register.inc.php';
-   
+   //include_once 'includes/register.inc.php';
    sec_session_start();
    
-   if (login_check($mysqli) == true) {
+   
+   if(login_check($mysqli) == true) {
        $logged = 'Has iniciado sesión';
-       header("Location: ../profile.php");
+      //Botónes nuevos - 1- Ir a perfil - 2 - Cerrar sesión
    } else {
        $logged = 'No has iniciado sesión';
+      //Botones default
    }
 ?>
 <!DOCTYPE html>
@@ -35,6 +36,7 @@
       <!-- Titulo de la página -->
       <title>Kingdom of Words</title>
    </head>
+   <?php if(login_check($mysqli) == false) { ?>
    <body>
       <?php
          if (isset($_GET['error'])) {
@@ -44,6 +46,7 @@
              echo $error_msg;
          }
          ?> 
+      <!-- Vista para usuario que no ha iniciado sesión --> 
       <div class="container">
          <div class="row">
             <div class="col-md-4 col-md-offset-4" style="text-align:center;">
@@ -77,6 +80,8 @@
                               <!--  Muestra si el usuario ha iniciado sesión o no
                               <?php echo $logged ?>
                               --> 
+                              
+                              
                            </div>
                         </div>
                      </div>
@@ -94,7 +99,7 @@
                            </div>
                            <div class="modal-body">
                               <div class="form-group form-login"></div>
-                              <form method="post" class="form-group" name="registration_form" action="<?php echo esc_url($_SERVER['PHP_SELF']); ?>">
+                              <form method="post" class="form-group" name="registration_form" action="includes/register.inc.php">
                                  Usuario: <input class="form-control" type='text' name='username' id='username' /><br>
                                  Email: <input class="form-control" type="text" name="email" id="email" /><br>
                                  Contraseña: <input class="form-control" type="password" name="password" id="password"/><br>
@@ -110,6 +115,23 @@
             </div>
          </div>
       </div>
+      <!-- VISTA PARA USUARIO QUE HA INICIADO SESIÓN -->
+      <?php }else{ ?>
+      <div class="container">
+         <div class="row">
+            <div class="col-md-4 col-md-offset-4" style="text-align:center;">
+               <div class="container-middle">
+                  <div class="col-md">
+                     <img src="http://eatlogos.com/education_logos/png/vector_sun_book_logo.png" alt="logo" class="img-thumbnail">
+                  </div>
+                  <a href="profile.php"><button type="button" id="" class="btn btn-blueword btn-md btn-block">Ir a perfil</button>  </a><br>
+                  <a href="includes/logout.php"> <button type="button" id="" class="btn btn-blueword btn-md btn-block">Cerrar sesión</button> </a>
+               </div>
+            </div>
+         </div>
+      </div>
+      
+      <?php } ?>
       <script>
       $(document).ready(function(){
           $('[data-toggle="popover"]').popover();   

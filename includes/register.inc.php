@@ -2,6 +2,7 @@
 include_once 'db_connect.php';
 include_once 'psl-config.php';
 session_start();
+;
 $_SESSION["email"]=$_POST['email'];
 $error_msg = "";
 if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
@@ -71,7 +72,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
             
         }
         
-        header('Location: ./register_success.php');
+        header('Location: ../register_success.php');
         exit();
         
         

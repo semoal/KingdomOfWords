@@ -52,11 +52,24 @@
                 if($updatePoints){
                    $updatePoints->bind_param('is',$points=100,$_SESSION["username"]);
                    $updatePoints->execute();
+                   
+                  
                 }
+                 echo '<script type="text/javascript">
+                            window.onload = function(){
+                            goodAnswer();
+                            }
+                        </script>';
             }else{
+                //PREGUNTA INCORRECTA DENTRO DEL IF
                  $this->correct=$this->idQuestion.'.incorrect'.'.'.$aAnswer;
+                 echo '<script type="text/javascript">
+                            window.onload = function(){
+                            badAnswer();
+                            }
+                        </script>';
             }
-                //PREGUNTA INCORRECTA
+                //PREGUNTA INCORRECTA FUERA DEL IF
                 
                 $query = "UPDATE profile_info SET answers=answers+? WHERE user=?";
                 $updateAnswers = $mysqli->prepare($query);

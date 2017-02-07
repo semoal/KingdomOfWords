@@ -45,19 +45,45 @@
       <link rel="stylesheet" type="text/css" href="styles/profile.css">
       <link rel="stylesheet" type="text/css" href="styles/style.css">
       <link rel="stylesheet" type="text/css" href="styles/preguntas.css">
+      <link rel="stylesheet" type="text/css" href="alerts/sweetalert.css">
       <!-- Jquery & Bootstrap CDN'S --> 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src="alerts/sweetalert.min.js"></script>
+
       
       <?php if (login_check($mysqli) == true){ ?>
          <?php if ($random!=false){ ?>
       <title>Bienvenido <?php echo htmlentities($_SESSION['username']); ?></title>
+      <script type="text/javascript">
+         function goodAnswer() {
+            swal({
+              title: "Bien hecho!",
+              text: "Felicidades! Has ganado 100 puntos \n Respuesta elegida: <?php echo $_GET['a']; ?>",
+              type: "success",
+              confirmButtonText: "Siguiente pregunta"
+            },
+            function(){
+               window.location.href = '?';
+            });
+         }
+         function badAnswer() {
+           swal({
+              title: "Error!",
+              text: "Has fallado! Lo lamento \n Respuesta elegida: <?php echo $_GET['a']; ?> \n Respuesta correcta: <?php echo $gamePlay->rightAnswer; ?>",
+              type: "error",
+              confirmButtonText: "Siguiente pregunta"
+            },
+            function(){
+               window.location.href = '?';
+            }); 
+         }
+         
+      </script>
       <?php 
          if($_SESSION["ans"]=='true'){
             answered();
-            //Colorea la correcta y la erronea introduciendo en el url 
             randomNumber();
-            
          }else{
             
          }
@@ -131,7 +157,6 @@
               <div class="caption">
                <h1 class="h1-preguntas"><?php echo $gamePlay->tittle ?>  </h1> <br>
                 <p>
-                    <?php $gamePlay->nextQuestionButton() ?>
                     <a href="?a=<?php echo $gamePlay->answers[0]?>" class="btn btn-blueword btn-preguntas <?php $gamePlay->checkAnswerStyle($gamePlay->answers[0]) ?>" role="button">
                        <?php echo $gamePlay->answers[0] ?>
                        </a>
@@ -144,6 +169,7 @@
                     <a href="?a=<?php echo $gamePlay->answers[3]?>" class="btn btn-blueword btn-preguntas <?php $gamePlay->checkAnswerStyle($gamePlay->answers[3]) ?>"  role="button">
                        <?php echo $gamePlay->answers[3] ?>
                        </a>
+                    <?php $gamePlay->nextQuestionButton() ?>
                    <?php $gamePlay->changeAns() ?>
                 </p>
               </div>
