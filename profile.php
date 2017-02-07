@@ -88,6 +88,14 @@
       <?php if (login_check($mysqli) == true) : ?>
       <title>Bienvenido <?php echo htmlentities($_SESSION['username']); ?></title>
    </head>
+   <style type="text/css">
+       .label-level {
+           position: absolute;
+           margin-left: 10px;
+           font-size: 20px !important;
+           padding: 10px;
+        }
+   </style>
    <body>
       <div class="navbar-more-overlay"> </div>
       <!-- Navbar --> 
@@ -96,17 +104,17 @@
          <!-- All view --> 
          <div class="container">
             <div class="navbar-header hidden-xs">
-               <a class="navbar-brand" href="index.php?">Kingdom of Words</a>
+               <a class="navbar-brand" href="index?">Kingdom of Words</a>
             </div>
             <ul class="nav navbar-nav navbar-right mobile-bar">
                 <li>
-                  <a href="profile.php">
+                  <a href="profile">
                   <span class="menu-icon fa fa-user"></span>
                   <?php echo $_SESSION["username"] ?>
                   </a>
                </li>
                <li>
-                  <a href="new_play.php">
+                  <a href="new_play">
                   <span class="menu-icon fa fa-gamepad"></span>
                   Juega
                   </a>
@@ -119,7 +127,7 @@
                   </a>
                </li>
                <li>
-                  <a href="#">
+                  <a href="ranking">
                   <span class="menu-icon fa fa-cloud-upload" aria-hidden="true">
                   </span>
                   Marcadores
@@ -133,7 +141,7 @@
                   </a>
                </li>
                <li>
-                  <a href="includes/logout.php">
+                  <a href="includes/logout">
                   <span class="menu-icon fa fa-sign-out" aria-hidden="true">
                   </span>
                   Salir
@@ -147,12 +155,15 @@
       <div class="row">
           <div class="col-sm-2">
              <a class="pull-left">
-                 <label class="label label-success label-level"><?php echo $level ?> </label>
-                 <img title="profile image" width="150px" height="150px" class="img-circle img-responsive" src="<?php echo $picture?>">
+                 <img style="width:150px;height:150px;background-size:cover;"title="profile image" class="img-circle img-responsive" src="<?php echo $picture?>">
              </a>
          </div>
          <div class="col-sm-10">
-            <h1><?php echo htmlentities($_SESSION['username']); ?> </h1>
+             <div class="header-title">             
+                 <h1><?php echo htmlentities($_SESSION['username']); ?> 
+                 <label class="label label-success label-level"><?php echo $level ?> </label>
+                 </h1> 
+             </div>
             <div class="progress">
               <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow=""
               aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $points/10 ?>%">
@@ -281,7 +292,7 @@
       </div>
       <?php else : ?>
       <p>
-         <span class="error">No estas autorizado para entrar en este apartado</span> Por favor <a href="index.php">inicia sesión</a>.
+         <span class="error">No estas autorizado para entrar en este apartado</span> Por favor <a href="index">inicia sesión</a>.
       </p>
       <?php endif; ?>
    </body>

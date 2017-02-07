@@ -1,17 +1,8 @@
 <?php
    include_once 'includes/db_connect.php';
    include_once 'includes/functions.php';
-   //include_once 'includes/register.inc.php';
+   //include_once 'includes/register.inc';
    sec_session_start();
-   
-   
-   if(login_check($mysqli) == true) {
-       $logged = 'Has iniciado sesión';
-      //Botónes nuevos - 1- Ir a perfil - 2 - Cerrar sesión
-   } else {
-       $logged = 'No has iniciado sesión';
-      //Botones default
-   }
 ?>
 <!DOCTYPE html>
 <html>
@@ -46,7 +37,7 @@
              echo $error_msg;
          }
          ?> 
-      <!-- Vista para usuario que no ha iniciado sesión --> 
+      <!-- User not signed in --> 
       <div class="container">
          <div class="row">
             <div class="col-md-4 col-md-offset-4" style="text-align:center;">
@@ -69,7 +60,7 @@
                               <h4 class="modal-title">Iniciar sesión</h4>
                            </div>
                            <div class="modal-body">
-                              <form action="includes/process_login.php" class="form-group form-login" method="post" name="login_form"> 			
+                              <form action="includes/process_login" class="form-group form-login" method="post" name="login_form"> 			
                                  Usuario o Email: <input type="text" name="user_or_email" class="form-control" required />
                                  Contraseña: <input type="password" name="password" id="password" class="form-control"/>
                                  <input type="submit" value="Login" class="btn btn-md btn-login" onclick="formhash(this.form, this.form.password);" /> 
@@ -99,7 +90,7 @@
                            </div>
                            <div class="modal-body">
                               <div class="form-group form-login"></div>
-                              <form method="post" class="form-group" name="registration_form" action="includes/register.inc.php">
+                              <form method="post" class="form-group" name="registration_form" action="includes/register.inc">
                                  Usuario: <input class="form-control" type='text' name='username' id='username' /><br>
                                  Email: <input class="form-control" type="text" name="email" id="email" /><br>
                                  Contraseña: <input class="form-control" type="password" name="password" id="password"/><br>
@@ -115,8 +106,8 @@
             </div>
          </div>
       </div>
-      <!-- VISTA PARA USUARIO QUE HA INICIADO SESIÓN -->
       <?php }else{ ?>
+      <!-- User signed in -->
       <div class="container">
          <div class="row">
             <div class="col-md-4 col-md-offset-4" style="text-align:center;">
@@ -124,8 +115,8 @@
                   <div class="col-md">
                      <img src="http://eatlogos.com/education_logos/png/vector_sun_book_logo.png" alt="logo" class="img-thumbnail">
                   </div>
-                  <a href="profile.php"><button type="button" id="" class="btn btn-blueword btn-md btn-block">Ir a perfil</button>  </a><br>
-                  <a href="includes/logout.php"> <button type="button" id="" class="btn btn-blueword btn-md btn-block">Cerrar sesión</button> </a>
+                  <a href="profile"><button type="button" id="" class="btn btn-blueword btn-md btn-block">Ir a perfil</button>  </a><br>
+                  <a href="includes/logout"> <button type="button" id="" class="btn btn-blueword btn-md btn-block">Cerrar sesión</button> </a>
                </div>
             </div>
          </div>

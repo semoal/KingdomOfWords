@@ -59,8 +59,10 @@ body:after {
     -o-transition: all .2s ease-in-out;
     transition: all .2s ease-in-out;
 }
+.container-ranking {
+    padding-top:;
+}
 /* Diseño para botones principales */
-
 .btn-blueword {
     color: #ffcc00 !important;
     font-family: 'Roboto', sans-serif;

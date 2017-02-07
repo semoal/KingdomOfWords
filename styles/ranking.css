@@ -92,58 +92,6 @@ p {
     background-color: #1e2b3a !important;
     border-color: #1e3047 !important;
 }
-.panel-default {
-    border-color: #2c3b4d;
-}
-.panel {
-    margin-bottom: 20px;
-    background-color: #2b3848;
-    border: 1px solid transparent;
-    border-radius: 4px;
-    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-}
-.panel-default>.panel-heading {
-    color: #fff;
-    background-color: #334354;
-    border-color: #3d4c5f;
-}
-.thumbnail {
-    display: block;
-    padding: 4px;
-    margin-bottom: 20px;
-    line-height: 1.42857143;
-    background-color: #334354;
-    border: 1px solid #3a4856;
-    border-radius: 4px;
-    -webkit-transition: border .2s ease-in-out;
-    -o-transition: border .2s ease-in-out;
-    transition: border .2s ease-in-out;
-}
-.cofre:hover {
-    width: 190px;
-}
-.thumbnail .caption {
-    padding: 9px;
-    color: #d4d4d4;
-}
-.label-points {
-    padding: .2em .6em .3em;
-    font-size: 75%;
-    font-weight: 700;
-    line-height: 1;
-    color: #fff;
-    text-align: center;
-    white-space: nowrap;
-    vertical-align: baseline;
-    border-radius: .25em;
-}
-.label-level {
-   position: absolute;
-   margin-left: 10px;
-   font-size: 20px;
-   padding: 10px;
-}
 @media (min-width: 768px) {
     .navbar {
         height: auto;

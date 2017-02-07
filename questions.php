@@ -12,7 +12,6 @@
          
          foreach ($results as $result) {
             if($result["idQuestion"]==$random){
-               //usamos una clase (includes/game_play.php) para separar los elementos de la query
                $gamePlay=new Play($result);
             }
          }
@@ -97,23 +96,23 @@
          <!-- All view --> 
          <div class="container">
             <div class="navbar-header hidden-xs">
-               <a class="navbar-brand" href="profile.php">Kingdom of Words</a>
+               <a class="navbar-brand" href="profile">Kingdom of Words</a>
             </div>
             <ul class="nav navbar-nav navbar-right mobile-bar">
                <li>
-                  <a href="profile.php">
+                  <a href="profile">
                   <span class="menu-icon fa fa-user"></span>
                   <?php echo $_SESSION["username"] ?>
                   </a>
                </li>
                <li>
-                  <a href="#">
+                  <a href="new_play">
                   <span class="menu-icon fa fa-gamepad"></span>
                   Juega
                   </a>
                </li>
                <li>
-                  <a href="#">
+                  <a href="ranking">
                   <span class="menu-icon fa fa-users" aria-hidden="true">
                   </span>
                   Grupos
@@ -134,7 +133,7 @@
                   </a>
                </li>
                <li>
-                  <a href="includes/logout.php">
+                  <a href="includes/logout">
                   <span class="menu-icon fa fa-sign-out" aria-hidden="true">
                   </span>
                   Salir
@@ -187,11 +186,11 @@
             //Aquí hay 
             
          ?>
-         <h1>Se han acabado las preguntas</h1> Por favor <a href="profile.php">vuelve a tu perfil, <?php echo $_SESSION["username"] ?></a>.
+         <h1>Se han acabado las preguntas</h1> Por favor <a href="profile">vuelve a tu perfil, <?php echo $_SESSION["username"] ?></a>.
       </p>
       <?php }}else{ ?>
       <p>
-         <span class="error">No estas autorizado para entrar en este apartado</span> Por favor <a href="index.php">inicia sesión</a>.
+         <span class="error">No estas autorizado para entrar en este apartado</span> Por favor <a href="index">inicia sesión</a>.
       </p>
       <?php } ?>
    </body>
