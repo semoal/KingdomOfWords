@@ -38,13 +38,15 @@
 <html>
    <head>
       <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+      <meta name="theme-color" content="#1e2b3a" />
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
       <!-- CSS --> 
       <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <link rel="stylesheet" type="text/css" href="styles/profile.css">
-      <link rel="stylesheet" type="text/css" href="styles/style.css">
+      
       <link rel="stylesheet" type="text/css" href="styles/preguntas.css">
       <link rel="stylesheet" type="text/css" href="alerts/sweetalert.css">
+      <link rel="stylesheet" type="text/css" href="styles/style.css">
       <!-- Jquery & Bootstrap CDN'S --> 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -57,9 +59,10 @@
       <script type="text/javascript">
          function goodAnswer() {
             swal({
-              title: "Bien hecho!",
-              text: "Felicidades! Has ganado 100 puntos \n Respuesta elegida: <?php echo $_GET['a']; ?>",
+              title: "Bien hecho! +100",
+              text: "Felicidades! Has ganado 100 puntos <br> Respuesta elegida: <?php echo $_GET['a']; ?>",
               type: "success",
+              html: true,
               confirmButtonText: "Siguiente pregunta"
             },
             function(){
@@ -68,16 +71,37 @@
          }
          function badAnswer() {
            swal({
-              title: "Error!",
-              text: "Has fallado! Lo lamento \n Respuesta elegida: <?php echo $_GET['a']; ?> \n Respuesta correcta: <?php echo $gamePlay->rightAnswer; ?>",
+              title: "Oh.... -50",
+              text: "Has fallado! <br> Respuesta elegida: <?php echo $_GET['a']; ?> <br> Respuesta correcta: <?php echo $gamePlay->rightAnswer; ?>",
               type: "error",
+                html: true,
               confirmButtonText: "Siguiente pregunta"
             },
             function(){
                window.location.href = '?';
             }); 
          }
-         
+         function timerOut() {
+            swal({
+              title: "Oh.... -50",
+              text: "Has tardado demasiado, a la proxima date prisa!!",
+              type: "warning",
+                html: true,
+              confirmButtonText: "Siguiente pregunta"
+            },
+            function(){
+               window.location.href = '?';
+            }); 
+         }
+         var counter = 15;
+         var interval = setInterval(function() {
+          counter--;
+          document.getElementById('clock').innerHTML = counter;
+          if (counter == 0) {
+              document.location.href="?a=timer-out";
+              clearInterval(interval);
+          }
+         }, 1000);
       </script>
       <?php 
          if($_SESSION["ans"]=='true'){
@@ -112,14 +136,14 @@
                   </a>
                </li>
                <li>
-                  <a href="ranking">
+                  <a href="#">
                   <span class="menu-icon fa fa-users" aria-hidden="true">
                   </span>
                   Grupos
                   </a>
                </li>
                <li>
-                  <a href="#">
+                  <a href="ranking">
                   <span class="menu-icon fa fa-cloud-upload" aria-hidden="true">
                   </span>
                   Marcadores
@@ -150,7 +174,7 @@
               <!-- Label de la categoria de la pregunta -->
               <label style="position:absolute;margin:10px;" class="label label-success"> <?php echo $gamePlay->category ?></label>
               <!-- Timer de tiempo restante --> 
-              <a class="btn btn-default btn-circle pull-right">10s</a>
+              <a id="clock" class="btn btn-default btn-circle pull-right"></a>
               <!-- Imagen de la pregunta --> 
               <img class="img-responsive img-rounded" src="http://tuportalpublicitario.com/wp-content/uploads/2014/08/mad-men.jpg">
               <div class="caption">

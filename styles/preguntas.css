@@ -12,7 +12,11 @@
     color: white;
     font-family: 'Roboto';
 }
-
+.good-answer-title{
+    font-size:25px;
+    text-align:center;
+    color:green;
+}
 .btn-circle {
   width: 30px;
   height: 30px;

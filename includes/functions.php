@@ -197,3 +197,30 @@ function esc_url($url) {
         return $url;
     }
 }
+
+function check_validate($user_or_email,$mysqli){
+    if ($stmt = $mysqli->prepare("SELECT username FROM members WHERE email = ? OR username = ? LIMIT 1")) {
+
+        $stmt->bind_param('ss', $user_or_email, $user_or_email);  // Bind "$email" to parameter.
+        $stmt->execute();    // Execute the prepared query.
+        $stmt->store_result();
+
+        // get variables from result.
+        $stmt->bind_result($username);
+        $stmt->fetch();
+    }
+        
+    if ($stmt = $mysqli->prepare("SELECT username FROM validate WHERE username = ?")) {
+
+        $stmt->bind_param('s',$username);  // Bind "$email" to parameter.
+       if($stmt->execute()){
+            $stmt->store_result();
+            $stmt->bind_result($user);
+            $stmt->fetch();
+        }    
+       
+    }
+    if(isset($user)){
+        return true;
+    }
+}

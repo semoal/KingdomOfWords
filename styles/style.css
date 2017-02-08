@@ -113,3 +113,30 @@ body:after {
 .col-padding {
     margin-top: 50% !important;
 }
+
+@media (max-width: 768px) {
+    .navbar-nav.mobile-bar {
+    list-style: none;
+    -ms-box-orient: horizontal;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -moz-flex;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
+    -webkit-flex-flow: row wrap;
+    flex-flow: row nowrap;
+    -webkit-align-items: stretch;
+    align-items: stretch;
+    margin: 0px 0px;
+}
+
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding:6px;
+}
+    
+}

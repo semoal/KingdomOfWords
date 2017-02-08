@@ -9,12 +9,14 @@
    <head>
       <!-- Meta charset --> 
       <meta charset="UTF-8">
+      <meta name="theme-color" content="#1e2b3a" />
       <meta name="google-signin-scope" content="profile email">
       <!-- <meta name="google-signin-client_id" content="831754447629-7n6vnv2klk5u88ekppbtt3dksk5jr2se.apps.googleusercontent.com">  -->
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
       <!-- JavaScript -->
       <script type="text/JavaScript" src="js/sha512.js"></script> 
       <script type="text/JavaScript" src="js/forms.js"></script> 
+
       <!-- Google Login JS 
       <script src="https://apis.google.com/js/platform.js" async defer></script> -->
       <!-- CSS -->
@@ -24,6 +26,7 @@
       <!-- Jquery & Bootstrap CDN'S --> 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
       <!-- Titulo de la página -->
       <title>Kingdom of Words</title>
    </head>
@@ -37,6 +40,11 @@
              echo $error_msg;
          }
          ?> 
+         <script type="text/javascript">
+            $('#clock').countdown('2020/10/10', function(event) {
+  $(this).html(event.strftime('%D days %H:%M:%S'));
+});
+         </script>
       <!-- User not signed in --> 
       <div class="container">
          <div class="row">
@@ -71,8 +79,6 @@
                               <!--  Muestra si el usuario ha iniciado sesión o no
                               <?php echo $logged ?>
                               --> 
-                              
-                              
                            </div>
                         </div>
                      </div>
@@ -90,6 +96,9 @@
                            </div>
                            <div class="modal-body">
                               <div class="form-group form-login"></div>
+                              <div id="getting-started"></div>
+<div id="clock"></div>
+
                               <form method="post" class="form-group" name="registration_form" action="includes/register.inc">
                                  Usuario: <input class="form-control" type='text' name='username' id='username' /><br>
                                  Email: <input class="form-control" type="text" name="email" id="email" /><br>

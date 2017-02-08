@@ -6,7 +6,6 @@
     randomNumber();
     $_SESSION["ans"]='false';
     $_SESSION["ansQuestions"]= array();
-    
     header('Location: ./questions');
     
    

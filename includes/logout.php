@@ -14,5 +14,5 @@ setcookie(session_name(),'', time() - 42000, $params["path"], $params["domain"],
 // Destroy session 
 //session_destroy();
 $_SESSION["username"]='username';
-header("Location: ../index.php");
+header("Location: ../index");
 exit();

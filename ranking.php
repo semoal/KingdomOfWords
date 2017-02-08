@@ -2,19 +2,25 @@
    include_once 'includes/db_connect.php';
    include_once 'includes/functions.php';
    sec_session_start();
-   $results = $mysqli->query('SELECT user, answers, gooAns, points,picture, level FROM profile_info');
-?>
+
+   if(isset($_POST["filter"])){
+      $query='SELECT user, answers, gooAns, points,picture, level FROM profile_info ORDER BY '.$_POST["filter"].' '.$_POST["order"];
+
+   }else{
+      $query='SELECT user, answers, gooAns, points,picture, level FROM profile_info ORDER BY (gooAns/answers) DESC';
+   }
+    $results = $mysqli->query($query);
+  
+   ?>
 <!DOCTYPE html>
 <html>
    <head>
       <!-- Meta charset --> 
       <meta charset="UTF-8">
       <meta name="google-signin-scope" content="profile email">
+      <meta name="theme-color" content="#1e2b3a" />
       <!-- <meta name="google-signin-client_id" content="831754447629-7n6vnv2klk5u88ekppbtt3dksk5jr2se.apps.googleusercontent.com">  -->
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-      <!-- JavaScript -->
-      <script type="text/JavaScript" src="js/sha512.js"></script> 
-      <script type="text/JavaScript" src="js/forms.js"></script> 
       <!-- CSS -->
       <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <link rel="stylesheet" type="text/css" href="styles/style.css">
@@ -28,7 +34,7 @@
       <title>Kingdom of Words</title>
    </head>
    <?php if(login_check($mysqli) == true) { ?>
-   <body>
+   <body class="ranking-body">
       <div class="navbar-more-overlay"> </div>
       <!-- Navbar --> 
       <nav class="navbar navbar-inverse navbar-fixed-top animate">
@@ -83,40 +89,73 @@
          </div>
       </nav>
       <!-- Vista para usuario que no ha iniciado sesión --> 
-      <div class="container target container-ranking">
-         <div class="row">
-            <div class="col-md-4 col-md-offset-4" style="text-align:center;">
-               <div class="container-middle">
+            <form class="form-ranking" method=post action="ranking.php">
+               <select class="form-control move-right" name="filter">
+                 <option value="" disabled selected>Selecciona un filtro</option>
+                 <option value="user">Por nombre</option>
+                 <option value="level">Por nivel</option>
+                 <option value="(gooAns/answers)">Por precision</option>
+               </select>
+               <select class="form-control" name="order" onchange="this.form.submit()">
+                 <option value="" disabled selected>Selecciona un orden</option>
+                 <option value="ASC">Ascendente</option>
+                 <option value="DESC">Descendiente</option>
+               </select>
+               <input type="text" class="form-control move-left" name="searchPlayer" placeholder="Busca a un jugador"/>
+            </form>
                  <?php 
+                     $i=1;
                     while($result=$results->fetch_assoc()){ 
                  ?>
-                   <div class="col-md panel panel-default">
-                       <div class="panel-heading">
-                           <img style="width:50px;height:50px;display:inline-flex;"title="profile image" class="img-circle img-responsive" src="<?php echo $result["picture"]?>">
-                           Nombre: <?php echo $result["user"]?><br>
-                       </div>
-                        <div class="progress">
-                          <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow=""
-                          aria-valuemin="0" aria-valuemax="100" style="width:<?php echo round($result["gooAns"]/$result["answers"]*100,2); ?>%">
-                           Precisión: <?php echo round($result["gooAns"]/$result["answers"]*100,2); ?>%
-                          </div>
-                        </div>
-                       Respuestas: <?php echo $result["answers"]?><br>
-                       Respuestas correctas: <?php echo $result["gooAns"]?><br>
-                       Puntos: <?php echo $result["points"]?><br>
-                       Nivel: <?php echo $result["level"]?>
-                   </div>        
+              <div class="panel panel-default widget">
+                  <div class="panel-heading">
+                      <span class="label label-info">
+                          Posicion: <?php echo $i; $i++; ?> </span>
+                  </div>
+                  <div class="">
+                      <ul class="list-group">
+                          <li class="list-group-item">
+                              <div class="row">
+                                  <div class="col-xs-2 col-md-1">
+                                       <label class="label label-warning ">  <?php echo $result["level"]?></label>
+                                      <img src="<?php echo $result["picture"]?>" class="img-circle img-responsive" alt="" />
+                                   </div>
+                                  <div class="col-xs-10 col-md-11">
+                                      <div>
+                                          <a href="">
+                                              <?php echo $result["user"]?></a>
+                                      </div>
+                                      <div class="action">
+                                          Preguntas contestadas:
+                                          <button type="button" class="btn btn-danger btn-xs" title="Approved">
+                                              <?php echo $result["answers"]?>
+                                          </button>
+                                          Preguntas correctas:
+                                          <button type="button" class="btn btn-success btn-xs" title="Approved">
+                                              <?php echo $result["gooAns"]?>
+                                          </button>
+                                          <div style="margin-top:10px;" class="progress">
+                                            <div class="progress-bar" role="progressbar" aria-valuenow=""
+                                            aria-valuemin="0" aria-valuemax="100" style="width:<?php echo round($result["gooAns"]/$result["answers"]*100,2); ?>%">
+                                             Precisión: <?php echo round($result["gooAns"]/$result["answers"]*100,2); ?>%
+                                            </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+      </div>
                  <?php 
                     } 
                  ?>
-               </div>
-            </div>
-         </div>
-      </div>
       <!-- Usuario no inicia sesión -->
       <?php 
       }else{
-         echo "Es necesario que inicies sesión para entrar al apartado de rankings.";
+         echo "<h1> Es necesario que inicies sesión para entrar al apartado de rankings. </h1>";
       }
       ?>
       <script>

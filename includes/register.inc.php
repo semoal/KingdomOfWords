@@ -55,7 +55,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
             $insert_stmt->bind_param('ssss', $username, $email, $password, $random_salt);
             // Execute the prepared query.
             if (! $insert_stmt->execute()) {
-                header('Location: ../error.php?err=Registration failure: INSERT');
+                header('Location: ../error?err=Registration failure: INSERT');
                 exit();
             }
         }
@@ -66,13 +66,13 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
         if($insert_profile=$mysqli->prepare("INSERT INTO profile_info (user, level, gooAns, answers, picture) VALUES (?, ?, ?, ?, ?)")) {
             $insert_profile->bind_param('siiis', $username, $initLevel, $initGAns, $initAns, $initPic);
             if (!$insert_profile->execute()) {
-                header('Location: ../error.php?err=Registration failure: INSERT PROFILE');
+                header('Location: ../error?err=Registration failure: INSERT PROFILE');
                 exit();
             }
             
         }
         
-        header('Location: ../register_success.php');
+        header('Location: ../register_success');
         exit();
         
         

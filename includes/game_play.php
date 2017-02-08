@@ -63,19 +63,28 @@
             }else{
                 //PREGUNTA INCORRECTA DENTRO DEL IF
                  $this->correct=$this->idQuestion.'.incorrect'.'.'.$aAnswer;
-                 echo '<script type="text/javascript">
+                 if($aAnswer=="timer-out"){
+                     echo '<script type="text/javascript">
+                            window.onload = function(){
+                            timerOut();
+                            }
+                        </script>';
+                 }else{
+                     echo '<script type="text/javascript">
                             window.onload = function(){
                             badAnswer();
                             }
                         </script>';
+                 }
+                 
             }
                 //PREGUNTA INCORRECTA FUERA DEL IF
                 
-                $query = "UPDATE profile_info SET answers=answers+? WHERE user=?";
+                $query = "UPDATE profile_info SET answers=answers+?, points=points-? WHERE user=?";
                 $updateAnswers = $mysqli->prepare($query);
-                
+                $points=50;
                 if($updateAnswers){
-                   $updateAnswers->bind_param('is',$answers=1,$_SESSION["username"]);
+                   $updateAnswers->bind_param('iis',$answers=1,$points,$_SESSION["username"]);
                    $updateAnswers->execute();
                 }
                 
