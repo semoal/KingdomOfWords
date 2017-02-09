@@ -55,7 +55,8 @@
                    
                   
                 }
-                 echo '<script type="text/javascript">
+                $_SESSION['erroneas'] = 0;
+                echo '<script type="text/javascript">
                             window.onload = function(){
                             goodAnswer();
                             }
@@ -64,12 +65,14 @@
                 //PREGUNTA INCORRECTA DENTRO DEL IF
                  $this->correct=$this->idQuestion.'.incorrect'.'.'.$aAnswer;
                  if($aAnswer=="timer-out"){
+                     $_SESSION['erroneas']++;
                      echo '<script type="text/javascript">
                             window.onload = function(){
                             timerOut();
                             }
                         </script>';
                  }else{
+                     $_SESSION['erroneas']++;
                      echo '<script type="text/javascript">
                             window.onload = function(){
                             badAnswer();
@@ -79,7 +82,6 @@
                  
             }
                 //PREGUNTA INCORRECTA FUERA DEL IF
-                
                 $query = "UPDATE profile_info SET answers=answers+?, points=points-? WHERE user=?";
                 $updateAnswers = $mysqli->prepare($query);
                 $points=50;
@@ -102,6 +104,15 @@
                 if($updateLastQuestion){
                     $updateLastQuestion->bind_param('ss',$this->correct,$_SESSION["username"]);
                    $updateLastQuestion->execute();
+                }
+                if($_SESSION['erroneas']==3){
+                    $query = "UPDATE profile_info SET life=life-? WHERE user=?";
+                    $updateLife = $mysqli->prepare($query);
+                    if($updateLife){
+                       $updateLife->bind_param('is',$life=1,$_SESSION["username"]);
+                       $updateLife->execute();
+                       $_SESSION['erroneas'] = 0;
+                    }
                 }
                 
         }

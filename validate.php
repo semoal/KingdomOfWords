@@ -35,7 +35,7 @@
             <div class="col-md-4 col-md-offset-4" style="text-align:center;">
                <div class="container-middle">
                   <div class="col-md">
-                     <img src="http://eatlogos.com/education_logos/png/vector_sun_book_logo.png" alt="logo" class="img-thumbnail">
+                     <img src="img/kingdomLogo.png" alt="logo" class="img-thumbnail">
                   </div>
                   <button type="button" id="loginButton" class="btn btn-blueword btn-md btn-block" data-toggle="modal" data-target="#validateModal">Validar tu cuenta</button><br>
                   <!-- Validate Modal -->

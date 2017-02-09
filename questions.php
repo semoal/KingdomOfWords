@@ -39,6 +39,7 @@
    <head>
       <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
       <meta name="theme-color" content="#1e2b3a" />
+      <link rel="icon" type="image/png" href="img/kingdomLogo.png">
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
       <!-- CSS --> 
       <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -51,7 +52,6 @@
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       <script src="alerts/sweetalert.min.js"></script>
-
       
       <?php if (login_check($mysqli) == true){ ?>
          <?php if ($random!=false){ ?>
@@ -86,7 +86,7 @@
               title: "Oh.... -50",
               text: "Has tardado demasiado, a la proxima date prisa!!",
               type: "warning",
-                html: true,
+              html: true,
               confirmButtonText: "Siguiente pregunta"
             },
             function(){
@@ -120,13 +120,15 @@
          <!-- All view --> 
          <div class="container">
             <div class="navbar-header hidden-xs">
-               <a class="navbar-brand" href="profile">Kingdom of Words</a>
+               <a class="navbar-brand" href="index?">
+                  <img style="margin-top:-15px;" src="img/logo.png" width=150px alt="logo" class="img-thumbnail">
+               </a>
             </div>
             <ul class="nav navbar-nav navbar-right mobile-bar">
                <li>
                   <a href="profile">
                   <span class="menu-icon fa fa-user"></span>
-                  <?php echo $_SESSION["username"] ?>
+                  <span style="color:#ffcc00;"> <?php echo $_SESSION["username"] ?> </span>
                   </a>
                </li>
                <li>

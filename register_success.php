@@ -26,6 +26,7 @@
     <head>
       <title>Ya estas registrado</title>
       <meta charset="UTF-8">
+      <link rel="icon" type="image/png" href="img/kingdomLogo.png">
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
       <!-- CSS -->
       <link rel="stylesheet" type="text/css" href="styles/style.css">
@@ -47,6 +48,7 @@
             <div class="col-md-4 col-md-offset-4" style="text-align:center;">
                <div class="container-middle">
                   <div class="col-md col-padding">
+                     <img src="img/kingdomLogo.png" alt="logo" class="img-thumbnail">
                         <h1 style="color:#ffcc00;">¡Felicidades ya estas registrado en Kingdom of Words!</h1>
                         <p style="color:white;">Ahora inicia sesión para empezar tu aventura: </p>
                         <a href="index.php"> <button class="btn btn-md btn-login"> Iniciar sesión</button> </a>

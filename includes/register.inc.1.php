@@ -5,11 +5,10 @@ session_start();
 
 $email=$_POST['email'];
 $error_msg = "";
-if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
+//if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
     // Sanitize and validate the data passed in
-    $username = filter_input(INPUT_POST, 'username', FILTER_SANITIZE_STRING);
-    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-    $email = filter_var($email, FILTER_VALIDATE_EMAIL);
+    $username = "nipe";
+    $email = "dani.danielito.danielote@gmail.com";
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         // Not a valid email
         $error_msg .= '<p class="error">El correo electronico que has introducido no es valido</p>';
@@ -34,17 +33,21 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
         $stmt->bind_param('ss', $email, $username);
         $stmt->execute();
         $stmt->store_result();
-        if ($stmt->num_rows == "1") {
+        
+        
+        if ($stmt->num_rows == 1) {
             // A user with this email address already exists
             $error_msg .= '<p class="error">Un usuario con este correo o este usuario ya existe</p>';
+
         }
     } else {
-        $error_msg .= '<p class="error">Error lo siento, lo repararemos pronto</p>';
+        $error_msg .= '<p class="error">Error de busca minas, lo repararemos pronto</p>';
     }
     
     
-    
+
     if (empty($error_msg)) {
+                        var_dump("Llego");
         // Create a random salt
         $random_salt = hash('sha512', uniqid(openssl_random_pseudo_bytes(16), TRUE));
 
@@ -70,11 +73,13 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
                 header('Location: ../error?err=Registration failure: INSERT PROFILE');
                 exit();
             }
+            
         }
+        
         header('Location: ../register_success');
         exit();
-    }else {
-        echo "Lo siento ha surgido un error lo lamentamos";
+        
+        
     }
-}
+//}
 ?>

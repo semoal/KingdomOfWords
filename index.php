@@ -9,6 +9,7 @@
    <head>
       <!-- Meta charset --> 
       <meta charset="UTF-8">
+      <link rel="icon" type="image/png" href="img/kingdomLogo.png">
       <meta name="theme-color" content="#1e2b3a" />
       <meta name="google-signin-scope" content="profile email">
       <!-- <meta name="google-signin-client_id" content="831754447629-7n6vnv2klk5u88ekppbtt3dksk5jr2se.apps.googleusercontent.com">  -->
@@ -51,7 +52,7 @@
             <div class="col-md-4 col-md-offset-4" style="text-align:center;">
                <div class="container-middle">
                   <div class="col-md">
-                     <img src="http://eatlogos.com/education_logos/png/vector_sun_book_logo.png" alt="logo" class="img-thumbnail">
+                     <img src="img/kingdomLogo.png" alt="logo" class="img-thumbnail">
                   </div>
                   <!-- Buttons for open modals and google LOGIN --> 
                   <!-- <div class="g-signin2" data-onsuccess="onSignIn" data-theme="light" data-width="100%" data-height="50" data-longtitle="true"></div> -->
@@ -97,8 +98,6 @@
                            <div class="modal-body">
                               <div class="form-group form-login"></div>
                               <div id="getting-started"></div>
-<div id="clock"></div>
-
                               <form method="post" class="form-group" name="registration_form" action="includes/register.inc">
                                  Usuario: <input class="form-control" type='text' name='username' id='username' /><br>
                                  Email: <input class="form-control" type="text" name="email" id="email" /><br>
@@ -122,7 +121,7 @@
             <div class="col-md-4 col-md-offset-4" style="text-align:center;">
                <div class="container-middle">
                   <div class="col-md">
-                     <img src="http://eatlogos.com/education_logos/png/vector_sun_book_logo.png" alt="logo" class="img-thumbnail">
+                     <img src="img/kingdomLogo.png" alt="logo" class="img-thumbnail">
                   </div>
                   <a href="profile"><button type="button" id="" class="btn btn-blueword btn-md btn-block">Ir a perfil</button>  </a><br>
                   <a href="includes/logout"> <button type="button" id="" class="btn btn-blueword btn-md btn-block">Cerrar sesión</button> </a>

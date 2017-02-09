@@ -42,13 +42,15 @@
          <!-- All view --> 
          <div class="container">
             <div class="navbar-header hidden-xs">
-               <a class="navbar-brand" href="index?">Kingdom of Words</a>
+               <a class="navbar-brand" href="index?">
+                  <img style="margin-top:-15px;" src="img/logo.png" width=150px alt="logo" class="img-thumbnail">
+               </a>
             </div>
             <ul class="nav navbar-nav navbar-right mobile-bar">
                 <li>
                   <a href="profile">
                   <span class="menu-icon fa fa-user"></span>
-                  <?php echo $_SESSION["username"] ?>
+                  <span style="color:#ffcc00;"> <?php echo $_SESSION["username"] ?> </span>
                   </a>
                </li>
                <li>

@@ -45,7 +45,6 @@ body:after {
     float: right !important;
 }
 /* Imagen logo para ventana 1 */
-
 .img-thumbnail {
     display: inline-block;
     max-width: 100%;
@@ -60,7 +59,7 @@ body:after {
     transition: all .2s ease-in-out;
 }
 .container-ranking {
-    padding-top:;
+    padding-top:0;
 }
 /* Diseño para botones principales */
 .btn-blueword {
