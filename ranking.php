@@ -91,7 +91,7 @@
          </div>
       </nav>
       <!-- Vista para usuario que no ha iniciado sesión --> 
-            <form class="form-ranking" method=post action="ranking.php">
+            <form class="form-ranking" method=post action="ranking">
                <select class="form-control move-right" name="filter">
                  <option value="" disabled selected>Selecciona un filtro</option>
                  <option value="user">Por nombre</option>
@@ -101,7 +101,7 @@
                <select class="form-control" name="order" onchange="this.form.submit()">
                  <option value="" disabled selected>Selecciona un orden</option>
                  <option value="ASC">Ascendente</option>
-                 <option value="DESC">Descendiente</option>
+                 <option value="DESC">Descendente</option>
                </select>
                <input type="text" class="form-control move-left" name="searchPlayer" placeholder="Busca a un jugador"/>
             </form>
@@ -119,7 +119,6 @@
                           <li class="list-group-item">
                               <div class="row">
                                   <div class="col-xs-2 col-md-1">
-                                       <label class="label label-warning ">  <?php echo $result["level"]?></label>
                                       <img src="<?php echo $result["picture"]?>" class="img-circle img-responsive" alt="" />
                                    </div>
                                   <div class="col-xs-10 col-md-11">
@@ -136,6 +135,9 @@
                                           <button type="button" class="btn btn-success btn-xs" title="Approved">
                                               <?php echo $result["gooAns"]?>
                                           </button>
+                                          Nivel: 
+                                         <label class="label label-warning ">  <?php echo $result["level"]?></label>
+
                                           <div style="margin-top:10px;" class="progress">
                                             <div class="progress-bar" role="progressbar" aria-valuenow=""
                                             aria-valuemin="0" aria-valuemax="100" style="width:<?php echo round($result["gooAns"]/$result["answers"]*100,2); ?>%">

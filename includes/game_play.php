@@ -1,6 +1,7 @@
 <?php 
     include_once 'includes/db_connect.php';
     include_once 'includes/functions.php';
+    include_once 'includes/profile_checker.php';
     /**
      * Clase que se llamará cada vez que se juega
      */
@@ -48,9 +49,9 @@
                 //query para actualizar los puntos por cada pregunta acertada
                 $query = "UPDATE profile_info SET points=points+? WHERE user=?";
                 $updatePoints = $mysqli->prepare($query);
-                
+                $points=100;
                 if($updatePoints){
-                   $updatePoints->bind_param('is',$points=100,$_SESSION["username"]);
+                   $updatePoints->bind_param('is',$points,$_SESSION["username"]);
                    $updatePoints->execute();
                    
                   
@@ -63,6 +64,17 @@
                         </script>';
             }else{
                 //PREGUNTA INCORRECTA DENTRO DEL IF
+                $query = "UPDATE profile_info SET answers=answers+?, points=points-? WHERE user=?";
+                $updateAnswers = $mysqli->prepare($query);
+                $points=50;
+                if($updateAnswers){
+                   $updateAnswers->bind_param('iis',$answers=1,$points,$_SESSION["username"]);
+                   $updateAnswers->execute();
+                }
+                
+                if($aAnswer=='timer-out'){
+                    $aAnswer='Fuera de tiempo';
+                }
                  $this->correct=$this->idQuestion.'.incorrect'.'.'.$aAnswer;
                  if($aAnswer=="timer-out"){
                      $_SESSION['erroneas']++;
@@ -82,13 +94,7 @@
                  
             }
                 //PREGUNTA INCORRECTA FUERA DEL IF
-                $query = "UPDATE profile_info SET answers=answers+?, points=points-? WHERE user=?";
-                $updateAnswers = $mysqli->prepare($query);
-                $points=50;
-                if($updateAnswers){
-                   $updateAnswers->bind_param('iis',$answers=1,$points,$_SESSION["username"]);
-                   $updateAnswers->execute();
-                }
+                
                 
                 $query = "UPDATE profile_info SET lastQuestion2=lastQuestion WHERE user=?";
                 $updateLastQuestion2 = $mysqli->prepare($query);
@@ -120,19 +126,17 @@
         public function checkAnswerStyle($idAnswer){
             if(isset($_GET["a"])){
                 if($idAnswer==$this->rightAnswer){
-                    echo 'rightAnswer'; 
+                    echo 'rightAnswer disabled'; 
                 }else{
                     echo 'badAnswer';
                 }
             }
-            if($_SESSION["ans"]=='true'){
-                echo ' disabled';
-            }
+            
         }
         
         public function changeAns(){
         
-            if($_SESSION["ans"]=='true'){
+            if(isset($_GET["a"])){
                 $_SESSION["ans"]='false';
                 
              }else{
@@ -146,6 +150,11 @@
             }
         }
         
+        public function checkTimer(){
+            if(!isset($_GET["a"])){
+                echo 'timer();';
+            }
+        }
     }
 
 ?>

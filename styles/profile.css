@@ -108,6 +108,9 @@ p {
     background-color: #334354;
     border-color: #3d4c5f;
 }
+.progress{
+    text-align: center;
+}
 .thumbnail {
     display: block;
     padding: 4px;

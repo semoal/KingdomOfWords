@@ -2,76 +2,10 @@
    
    include_once 'includes/db_connect.php';
    include_once 'includes/functions.php';
+   include_once 'includes/profile_checker.php';
    sec_session_start();
-   $prep_stmt = 'SELECT points, picture, gooAns, answers, level, life FROM profile_info WHERE user=?';
-   $stmt = $mysqli->prepare($prep_stmt);
-    if ($stmt) {
-        $stmt->bind_param('s', $_SESSION["username"]);
-        $stmt->execute();
-        $stmt->store_result();
-        $stmt->bind_result($points, $picture, $goodAns, $answers, $level, $life);
-        $stmt->fetch();
-   }
-    $maxpoints=$level*1000;
-    
-   //Subimos el nivel del usuario cuando los puntos llegan a 1000
-   if($points>=$maxpoints){
-      $level++;
-      $points -= 1000;
-      //Insertamos el nivel en la bd 
-      $query = "UPDATE profile_info SET level='$level' WHERE user=?";
-      $updateLevel = $mysqli->prepare($query);
-      
-      if($updateLevel){
-         $updateLevel->bind_param('s', $_SESSION["username"]);
-         $updateLevel->execute();
-      }
-      //Reseteamos los puntos para el siguiente nivel
-      $query2 = "UPDATE profile_info SET points='$points' WHERE user=?";
-      $updatePoints = $mysqli->prepare($query2);
-      
-      if($updatePoints){
-         $updatePoints->bind_param('s', $_SESSION["username"]);
-         $updatePoints->execute();
-      }
-   }
-   //Query para coger las ultimas dos preguntas
-   $queryQuestions = 'SELECT lastQuestion, lastQuestion2 FROM profile_info WHERE user=?';
-   $lastQuestions = $mysqli->prepare($queryQuestions);
-    
-    if ($lastQuestions) {
-        $lastQuestions->bind_param('s', $_SESSION["username"]);
-        $lastQuestions->execute();
-        $lastQuestions->store_result();
-        $lastQuestions->bind_result($question1,$question2);
-        $lastQuestions->fetch();
-   }
    
-   $queryQuestions = 'SELECT tittle FROM questions WHERE idQuestion=?';
-   $lastQuestions = $mysqli->prepare($queryQuestions);
     
-    if ($lastQuestions) {
-        $lastQuestions->bind_param('i', $question1);
-        $lastQuestions->execute();
-        $lastQuestions->store_result();
-        $lastQuestions->bind_result($lastQuestion1);
-        $lastQuestions->fetch();
-   }
-   
-   $queryQuestions = 'SELECT tittle FROM questions WHERE idQuestion=?';
-   $lastQuestions = $mysqli->prepare($queryQuestions);
-    
-    if ($lastQuestions) {
-        $lastQuestions->bind_param('i', $question2);
-        $lastQuestions->execute();
-        $lastQuestions->store_result();
-        $lastQuestions->bind_result($lastQuestion2);
-        $lastQuestions->fetch();
-   }
-   $_SESSION['life'] = $life;
-   $_SESSION['erroneas'] = $contadorErroneas;
-   $optionQuestion1 = explode('.',$question1);
-   $optionQuestion2 = explode('.',$question2);
 
 ?>
 <!DOCTYPE html>
@@ -177,8 +111,18 @@
             <div class="progress">
               <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow=""
               aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $prueba ?>%">
-               <?php echo $points?> puntos
+               <?php 
+                if($prueba>8){
+                    echo $points.' puntos';
+                }else{}
+               ?>
               </div>
+              <?php 
+                if($prueba<8){
+                    echo $points.' puntos';
+                }else{}
+               ?>
+              
             </div>
           <!--Cuenta los puntos para subir de nivel --> 
            <label class="label-points label-success"> 
@@ -208,8 +152,12 @@
                </li>
               <li class="list-group-item text-right"><span class="pull-left"><strong class="">Vidas: </strong></span>
                   <?php
-                  for ($i = 0; $i <$life; $i++) {
-                    echo '<span style="color:red;" class="menu-icon fa fa-heart"></span>';
+                  if($life>0){
+                      for ($i = 0; $i <$life; $i++) {
+                        echo '<span style="color:red;" class="menu-icon fa fa-heart"></span>';
+                      }
+                  }else{
+                      echo '<span style="color:black;" class="menu-icon fa fa-heart"></span>';
                   }
                   ?>
               </li>

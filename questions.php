@@ -4,23 +4,41 @@
    include_once 'includes/random_number.php';
    include_once 'includes/game_play.php';
    sec_session_start();
-   // WORKAROUND COMO LA COPA DE UN PINO DE 8 METROS DE H
-      $random=$_SESSION["random"];
+   
+      
+      
+      if(isset($_GET["cat"])){
+            $_SESSION["categoriaUsuario"] = $_GET["cat"];
+         randomNumber($_SESSION["categoriaUsuario"]);
+      }
+      
+      $random = $_SESSION["random"];
+      echo $random;
+      if($_SESSION["categoriaUsuario"]!="none"){
+            $categoriaUsuario = $_SESSION["categoriaUsuario"];
+            $questions_query = "SELECT * FROM questions WHERE category='$categoriaUsuario'";
+         }else{
+            $questions_query = "SELECT * FROM questions";
+         }
+      
+      
+       
+      
       if($random!=false){
-         $questions = "SELECT * FROM questions";
-         $results = $mysqli->query($questions);
          
-         foreach ($results as $result) {
+         
+         
+         $results = $mysqli->query($questions_query);
+         
+         while($result=$results->fetch_assoc()){
             if($result["idQuestion"]==$random){
-               $gamePlay=new Play($result);
+               $gamePlay = new Play($result);
             }
          }
       }
       if(isset($_GET["a"])){
          $gamePlay->checkAnswer($_GET["a"]);
       }
-      
-      
    function answered(){
       echo '<style type="text/css">
             .rightAnswer{
@@ -29,8 +47,7 @@
             .badAnswer{
                color:red !important;
             }
-            </style>
-      ';
+            </style>';
    }
    
 ?>
@@ -44,7 +61,6 @@
       <!-- CSS --> 
       <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <link rel="stylesheet" type="text/css" href="styles/profile.css">
-      
       <link rel="stylesheet" type="text/css" href="styles/preguntas.css">
       <link rel="stylesheet" type="text/css" href="alerts/sweetalert.css">
       <link rel="stylesheet" type="text/css" href="styles/style.css">
@@ -54,7 +70,9 @@
       <script src="alerts/sweetalert.min.js"></script>
       
       <?php if (login_check($mysqli) == true){ ?>
-         <?php if ($random!=false){ ?>
+         <?php if ($random!=false){
+         
+         ?>
       <title>Bienvenido <?php echo htmlentities($_SESSION['username']); ?></title>
       <script type="text/javascript">
          function goodAnswer() {
@@ -93,22 +111,26 @@
                window.location.href = '?';
             }); 
          }
-         var counter = 15;
-         var interval = setInterval(function() {
-          counter--;
-          document.getElementById('clock').innerHTML = counter;
-          if (counter == 0) {
-              document.location.href="?a=timer-out";
-              clearInterval(interval);
-          }
-         }, 1000);
+         function timer(){
+            var counter = 15;
+            var interval = setInterval(function() {
+             counter--;
+             document.getElementById('clock').innerHTML = counter;
+             if (counter == 0) {
+                 document.location.href="?a=timer-out";
+                 clearInterval(interval);
+             }
+            }, 1000);
+         }
+         
+      <?php $gamePlay->checkTimer(); ?>
       </script>
       <?php 
-         if($_SESSION["ans"]=='true'){
+         if(isset($_GET["a"])){
             answered();
-            randomNumber();
+            randomNumber($_SESSION["categoriaUsuario"]);
          }else{
-            
+            //Evita colapsos con el if global de la pagina
          }
       ?>
    </head>
@@ -168,6 +190,7 @@
             </ul>
          </div>
       </nav>
+   
       <!-- Diseño de las preguntas --> 
     <div id="container"> 
         <div class="row">
@@ -180,7 +203,7 @@
               <!-- Imagen de la pregunta --> 
               <img class="img-responsive img-rounded" src="http://tuportalpublicitario.com/wp-content/uploads/2014/08/mad-men.jpg">
               <div class="caption">
-               <h1 class="h1-preguntas"><?php echo $gamePlay->tittle ?>  </h1> <br>
+               <h1 style="font-size:20px;" class="h1-preguntas"><?php echo $gamePlay->tittle ?>  </h1>
                 <p>
                     <a href="?a=<?php echo $gamePlay->answers[0]?>" class="btn btn-blueword btn-preguntas <?php $gamePlay->checkAnswerStyle($gamePlay->answers[0]) ?>" role="button">
                        <?php echo $gamePlay->answers[0] ?>

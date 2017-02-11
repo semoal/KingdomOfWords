@@ -2,7 +2,9 @@
     display: block;
     margin: 10px;
 }
-
+body {
+    overflow:hidden;
+}
 .h1-preguntas {
     text-align: center;
     background-color: #283544;
@@ -10,6 +12,7 @@
     border-color: #3b4663;
     border-style: solid;
     color: white;
+    font-size:20px !important;
     font-family: 'Roboto';
 }
 .good-answer-title{
@@ -25,4 +28,6 @@
   font-size: 12px;
   line-height: 1.42;
   border-radius: 15px;
+  position: absolute;
+  right: 24px;
 }
