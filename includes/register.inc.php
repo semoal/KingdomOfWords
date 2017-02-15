@@ -71,6 +71,13 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
                 exit();
             }
         }
+        if($insert_repQuestions=$mysqli->prepare("INSERT INTO repQuestions (username) values (?)")){
+            $insert_repQuestions->bind_param('s',$username);
+            if(!$insert_repQuestions->execute()){
+                header('Location: ../error?err=Registration failure: INSERT REPQUESTIONS');
+                exit();
+            }
+        }
         header('Location: ../register_success');
         exit();
     }else {

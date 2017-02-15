@@ -30,27 +30,32 @@
                         
             for ($i = 0; $i < $results->num_rows; $i++) {
                 $result=$results->fetch_assoc();
-                $idArray[$i]=intval($result["idQuestion"]);
+                if(!in_array(intval($result["idQuestion"]),$questionArray)){
+                    $idArray[$i]=intval($result["idQuestion"]);
+                }
+                
             } 
             $maxId=count($idArray);
             
-            if(count($_SESSION["ansQuestions"]) != $maxId){
-                $i = array_rand($idArray);
-                $random=$idArray[$i];
-                while(in_array($random,$_SESSION["ansQuestions"])){
+            if($maxId>0){
+                if(count($_SESSION["ansQuestions"]) != $maxId){
                     $i = array_rand($idArray);
                     $random=$idArray[$i];
+                    while(in_array($random,$_SESSION["ansQuestions"])){
+                        $i = array_rand($idArray);
+                        $random=$idArray[$i];
+                    }
+                    
+                    array_push($_SESSION["ansQuestions"],$random);
+                    $questions=$questions.','.$random;
+                    $prep_insert_questions = "UPDATE repQuestions SET questions=? where username=?";
+                    $results = $mysqli->prepare($prep_insert_questions);
+                    $results->bind_param('ss',$questions,$_SESSION["username"]);
+                    $results->execute();
                 }
-                
-                array_push($_SESSION["ansQuestions"],$random);
-                $questions=$questions.','.$random;
-                $prep_insert_questions = "UPDATE repQuestions SET questions=? where username=?";
-                $results = $mysqli->prepare($prep_insert_questions);
-                $results->bind_param('ss',$questions,$_SESSION["username"]);
-                $results->execute();
-                }else{
-                    $random=false;
-                }
+            }else{
+                $random=false;
+            }
             
         }else{
             $prep_stmt = 'SELECT MAX(idQuestion) as maxId FROM questions';

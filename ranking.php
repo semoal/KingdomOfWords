@@ -2,13 +2,19 @@
    include_once 'includes/db_connect.php';
    include_once 'includes/functions.php';
    sec_session_start();
-
+   $query='SELECT user, answers, gooAns, points,picture, level FROM profile_info';
+   if(strlen($_POST["searchPlayer"])>0){
+       
+     $query=$query." WHERE user LIKE '".$_POST["searchPlayer"]."%'";
+     
+   }
    if(isset($_POST["filter"])){
-      $query='SELECT user, answers, gooAns, points,picture, level FROM profile_info ORDER BY '.$_POST["filter"].' '.$_POST["order"];
+      $query=$query.' ORDER BY '.$_POST["filter"].' '.$_POST["order"];
 
    }else{
-      $query='SELECT user, answers, gooAns, points,picture, level FROM profile_info ORDER BY (gooAns/answers) DESC';
+      $query=$query.' ORDER BY (gooAns/answers) DESC';
    }
+  
     $results = $mysqli->query($query);
   
    ?>
@@ -18,6 +24,8 @@
       <!-- Meta charset --> 
       <meta charset="UTF-8">
       <meta name="google-signin-scope" content="profile email">
+            <link rel="icon" type="image/png" href="img/kingdomLogo.png">
+
       <meta name="theme-color" content="#1e2b3a" />
       <!-- <meta name="google-signin-client_id" content="831754447629-7n6vnv2klk5u88ekppbtt3dksk5jr2se.apps.googleusercontent.com">  -->
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -60,10 +68,10 @@
                   </a>
                </li>
                <li>
-                  <a href="#">
+                  <a href="kingdom">
                   <span class="menu-icon fa fa-users" aria-hidden="true">
                   </span>
-                  Grupos
+                  Reinos
                   </a>
                </li>
                <li>
@@ -71,13 +79,6 @@
                   <span class="menu-icon fa fa-cloud-upload" aria-hidden="true">
                   </span>
                   Marcadores
-                  </a>
-               </li>
-               <li>
-                  <a href="#">
-                  <span class="menu-icon fa fa-commenting" aria-hidden="true">
-                  </span>
-                  Chat
                   </a>
                </li>
                <li>
@@ -104,6 +105,7 @@
                  <option value="DESC">Descendente</option>
                </select>
                <input type="text" class="form-control move-left" name="searchPlayer" placeholder="Busca a un jugador"/>
+               
             </form>
                  <?php 
                      $i=1;
@@ -119,7 +121,7 @@
                           <li class="list-group-item">
                               <div class="row">
                                   <div class="col-xs-2 col-md-1">
-                                      <img src="<?php echo $result["picture"]?>" class="img-circle img-responsive" alt="" />
+                                      <img style="width: 80px;height: 80px;background-size:cover;object-fit:cover;" src="<?php echo $result["picture"]?>" class="img-circle img-ranking" alt="" />
                                    </div>
                                   <div class="col-xs-10 col-md-11">
                                       <div>

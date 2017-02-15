@@ -16,6 +16,7 @@
         public $category;
         public $idQuestion;
         public $correct;
+        public $points;
 
         /**
          * Al construct le pasaremos la query que contenga las preguntas y sacaremos de ahi cada elemento
@@ -49,12 +50,13 @@
                 //query para actualizar los puntos por cada pregunta acertada
                 $query = "UPDATE profile_info SET points=points+? WHERE user=?";
                 $updatePoints = $mysqli->prepare($query);
-                $points=100;
+                $this->points=$_SESSION["combo"];
+                
                 if($updatePoints){
-                   $updatePoints->bind_param('is',$points,$_SESSION["username"]);
+                   $updatePoints->bind_param('is',$this->points,$_SESSION["username"]);
                    $updatePoints->execute();
                    
-                  
+                 $_SESSION["combo"]=$_SESSION["combo"]+100; 
                 }
                 $_SESSION['erroneas'] = 0;
                 echo '<script type="text/javascript">
@@ -64,6 +66,7 @@
                         </script>';
             }else{
                 //PREGUNTA INCORRECTA DENTRO DEL IF
+                $_SESSION["combo"]=100;
                 $query = "UPDATE profile_info SET answers=answers+?, points=points-? WHERE user=?";
                 $updateAnswers = $mysqli->prepare($query);
                 $points=50;

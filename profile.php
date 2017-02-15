@@ -4,9 +4,6 @@
    include_once 'includes/functions.php';
    include_once 'includes/profile_checker.php';
    sec_session_start();
-   
-    
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,15 +12,19 @@
       <link rel="icon" type="image/png" href="img/kingdomLogo.png">
       <meta name="theme-color" content="#1e2b3a" />
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-      <!-- CSS --> 
-      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-      
-      <link rel="stylesheet" type="text/css" href="styles/style.css">
-     
+      <!-- JavaScript -->
+      <script type="text/JavaScript" src="js/sha512.js"></script> 
+      <script type="text/JavaScript" src="js/forms.js"></script> 
 
+      <!-- Google Login JS 
+      <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+      <!-- CSS -->
+      <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <link rel="stylesheet" type="text/css" href="styles/style.css">
+      <link rel="stylesheet" type="text/css" href="styles/modal.css">
       <!-- Jquery & Bootstrap CDN'S --> 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       
       <?php if (login_check($mysqli) == true) : ?>
       <title>Bienvenido <?php echo htmlentities($_SESSION['username']); ?></title>
@@ -46,8 +47,8 @@
          <!-- All view --> 
          <div class="container">
             <div class="navbar-header hidden-xs">
-               <a class="navbar-brand" href="index?">
-                    <img style="margin-top:-15px;" src="img/logo.png" width=150px alt="logo" class="img-thumbnail">
+               <a class="navbar-brand">
+                  <img style="margin-top:-15px;" src="img/logo.png" width=150px alt="logo" class="img-thumbnail">
                </a>
             </div>
             <ul class="nav navbar-nav navbar-right mobile-bar">
@@ -64,10 +65,10 @@
                   </a>
                </li>
                <li>
-                  <a href="#">
+                  <a href="kingdom">
                   <span class="menu-icon fa fa-users" aria-hidden="true">
                   </span>
-                  Grupos
+                  Reinos
                   </a>
                </li>
                <li>
@@ -75,13 +76,6 @@
                   <span class="menu-icon fa fa-cloud-upload" aria-hidden="true">
                   </span>
                   Marcadores
-                  </a>
-               </li>
-               <li>
-                  <a href="#">
-                  <span class="menu-icon fa fa-commenting" aria-hidden="true">
-                  </span>
-                  Chat
                   </a>
                </li>
                <li>
@@ -95,11 +89,35 @@
          </div>
       </nav>
       <!-- Diselo perfil --> 
+      <?php if(isset($_GET["err"])){ ?>
+          <div>
+              <h1 style="color:red"><?php echo $_GET["err"]?></h1>
+          </div>
+      <?php } ?>
       <div class="container target">
       <div class="row">
           <div class="col-sm-2">
              <a class="pull-left">
-                 <img style="width:150px;height:150px;background-size:cover;"title="profile image" class="img-circle img-responsive" src="<?php echo $picture?>">
+                 <img style="width:150px;height:150px;background-size:cover;max-width:150px;min-width:150px;max-height:150px;min-height:150px;"title="profile image" class="img-circle img-responsive img-logo-pic" src="<?php echo $picture?>">
+                <button type="button" id="picButton" class="btn btn-blueword btn-md btn-block btn-xs" data-toggle="modal" data-target="#pic_Modal">Cambia</button>
+                 <!-- Profile image uploader -->
+                  <div class="modal fade" id="pic_Modal" role="dialog">
+                     <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                           <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal">&times;</button>
+                              <h4 class="modal-title">Introduce una URL</h4>
+                           </div>
+                           <div class="modal-body">
+                              <form action="upload" class="form-group form-login" method="post" name="pic_form"> 			
+                                 Url de la imagen:<input type="text" name="pic_form" class="form-control" required />
+                                 <input type="submit" value="Sube" class="btn btn-md btn-login" onclick="" /> 
+                              </form>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
              </a>
          </div>
          <div class="col-sm-10">

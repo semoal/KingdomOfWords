@@ -51,7 +51,7 @@
                      <img src="img/kingdomLogo.png" alt="logo" class="img-thumbnail">
                         <h1 style="color:#ffcc00;">¡Felicidades ya estas registrado en Kingdom of Words!</h1>
                         <p style="color:white;">Ahora inicia sesión para empezar tu aventura: </p>
-                        <a href="index.php"> <button class="btn btn-md btn-login"> Iniciar sesión</button> </a>
+                        <a href="index"> <button class="btn btn-md btn-login"> Iniciar sesión</button> </a>
                   </div>
                 </div>
             </div>

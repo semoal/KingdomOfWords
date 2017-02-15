@@ -110,6 +110,9 @@ p {
     background-color: #1e2b3a !important;
     border-color: #1e3047 !important;
 }
+.img-ranking{
+    height:80px;
+}
 @media (min-width: 768px) {
     .navbar {
         height: auto;

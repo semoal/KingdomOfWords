@@ -12,6 +12,7 @@ $prep_stmt = 'SELECT points, picture, gooAns, answers, level, life FROM profile_
         $stmt->bind_result($points, $picture, $goodAns, $answers, $level, $life);
         $stmt->fetch();
    }
+   $_SESSION["life"]=$life;
     $maxpoints=(pow($level*10,2)/20)*10;
     
    //Subimos el nivel del usuario cuando los puntos llegan a 1000

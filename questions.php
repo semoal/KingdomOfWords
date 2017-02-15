@@ -25,11 +25,7 @@
        
       
       if($random!=false){
-         
-         
-         
          $results = $mysqli->query($questions_query);
-         
          while($result=$results->fetch_assoc()){
             if($result["idQuestion"]==$random){
                $gamePlay = new Play($result);
@@ -77,8 +73,8 @@
       <script type="text/javascript">
          function goodAnswer() {
             swal({
-              title: "Bien hecho! +100",
-              text: "Felicidades! Has ganado 100 puntos <br> Respuesta elegida: <?php echo $_GET['a']; ?>",
+              title: "Bien hecho! +<?php echo $gamePlay->points ?>",
+              text: "Felicidades! Has ganado <?php echo $gamePlay->points ?> puntos <br> Respuesta elegida: <?php echo $_GET['a']; ?>",
               type: "success",
               html: true,
               confirmButtonText: "Siguiente pregunta"
@@ -160,10 +156,10 @@
                   </a>
                </li>
                <li>
-                  <a href="#">
+                  <a href="kingdom">
                   <span class="menu-icon fa fa-users" aria-hidden="true">
                   </span>
-                  Grupos
+                  Reinos
                   </a>
                </li>
                <li>
@@ -171,13 +167,6 @@
                   <span class="menu-icon fa fa-cloud-upload" aria-hidden="true">
                   </span>
                   Marcadores
-                  </a>
-               </li>
-               <li>
-                  <a href="#">
-                  <span class="menu-icon fa fa-commenting" aria-hidden="true">
-                  </span>
-                  Chat
                   </a>
                </li>
                <li>
