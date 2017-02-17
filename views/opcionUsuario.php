@@ -1,6 +1,6 @@
 <?php
-   include_once 'includes/db_connect.php';
-   include_once 'includes/functions.php';
+   include_once '../controllers/db_connect.php';
+   include_once '../controllers/functions.php';
    sec_session_start();
 ?>
 <!DOCTYPE html>
@@ -8,14 +8,13 @@
    <head>
       <!-- Meta charset --> 
       <meta charset="UTF-8">
-      <meta name="google-signin-scope" content="profile email">
       <meta name="theme-color" content="#1e2b3a" />
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
       <!-- CSS -->
       <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-      <link rel="stylesheet" type="text/css" href="styles/style.css">
-      <link rel="stylesheet" type="text/css" href="styles/modal.css">
-      <link rel="stylesheet" type="text/css" href="styles/ranking.css">
+      <link rel="stylesheet" type="text/css" href="../styles/style.css">
+      <link rel="stylesheet" type="text/css" href="../styles/modal.css">
+      <link rel="stylesheet" type="text/css" href="../styles/ranking.css">
 
       <!-- Jquery & Bootstrap CDN'S --> 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -30,9 +29,11 @@
    </head>
    <?php if(login_check($mysqli) == true) { ?>
    <body>
-   <div class="container">
-        <div class="row">
-            <div class="col-md-2 col-md-offset-2" style="text-align:center;">
+<div class="container">
+   <div class="row">
+      <div class="col-md-3 col-md-offset-3" style="text-align:center;">
+         <div class="container-middle">
+            <div class="col-md">
                     <div class="modal-dialog">
                     <div class="modal-content" id="showModal">
                         <div class="modal-header">
@@ -52,6 +53,7 @@
             </div>
         </div> 
    </div>
+</div>
       <!-- Usuario no inicia sesión -->
       <?php 
       }else{

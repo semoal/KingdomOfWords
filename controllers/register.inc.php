@@ -78,7 +78,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
                 exit();
             }
         }
-        header('Location: ../register_success');
+        header('Location: ../views/register_success');
         exit();
     }else {
         echo "Lo siento ha surgido un error lo lamentamos";

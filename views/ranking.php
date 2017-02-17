@@ -1,6 +1,6 @@
 <?php
-   include_once 'includes/db_connect.php';
-   include_once 'includes/functions.php';
+   include_once '../controllers/db_connect.php';
+   include_once '../controllers/functions.php';
    sec_session_start();
    $query='SELECT user, answers, gooAns, points,picture, level FROM profile_info';
    if(strlen($_POST["searchPlayer"])>0){
@@ -23,17 +23,14 @@
    <head>
       <!-- Meta charset --> 
       <meta charset="UTF-8">
-      <meta name="google-signin-scope" content="profile email">
-            <link rel="icon" type="image/png" href="img/kingdomLogo.png">
-
+      <link rel="icon" type="image/png" href="../img/kingdomLogo.png">
       <meta name="theme-color" content="#1e2b3a" />
-      <!-- <meta name="google-signin-client_id" content="831754447629-7n6vnv2klk5u88ekppbtt3dksk5jr2se.apps.googleusercontent.com">  -->
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
       <!-- CSS -->
       <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-      <link rel="stylesheet" type="text/css" href="styles/style.css">
-      <link rel="stylesheet" type="text/css" href="styles/modal.css">
-      <link rel="stylesheet" type="text/css" href="styles/ranking.css">
+      <link rel="stylesheet" type="text/css" href="../styles/style.css">
+      <link rel="stylesheet" type="text/css" href="../styles/modal.css">
+      <link rel="stylesheet" type="text/css" href="../styles/ranking.css">
 
       <!-- Jquery & Bootstrap CDN'S --> 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -50,8 +47,8 @@
          <!-- All view --> 
          <div class="container">
             <div class="navbar-header hidden-xs">
-               <a class="navbar-brand" href="index?">
-                  <img style="margin-top:-15px;" src="img/logo.png" width=150px alt="logo" class="img-thumbnail">
+               <a class="navbar-brand" href="profile">
+                  <img style="margin-top:-15px;" src="../img/logo.png" width=150px alt="logo" class="img-thumbnail">
                </a>
             </div>
             <ul class="nav navbar-nav navbar-right mobile-bar">
@@ -62,7 +59,7 @@
                   </a>
                </li>
                <li>
-                  <a href="new_play">
+                  <a href="../controllers/new_play">
                   <span class="menu-icon fa fa-gamepad"></span>
                   Juega
                   </a>
@@ -82,7 +79,7 @@
                   </a>
                </li>
                <li>
-                  <a href="includes/logout">
+                  <a href="../controllers/logout">
                   <span class="menu-icon fa fa-sign-out" aria-hidden="true">
                   </span>
                   Salir
@@ -120,10 +117,10 @@
                       <ul class="list-group">
                           <li class="list-group-item">
                               <div class="row">
-                                  <div class="col-xs-2 col-md-1">
-                                      <img style="width: 80px;height: 80px;background-size:cover;object-fit:cover;" src="<?php echo $result["picture"]?>" class="img-circle img-ranking" alt="" />
+                                  <div class="col-xs-4 col-md-1">
+                                      <img style="width: 80px;height: 80px;background-size:cover;object-fit:cover;" src="<?php echo $result["picture"]?>" class="img-circle img-responsive" alt="" />
                                    </div>
-                                  <div class="col-xs-10 col-md-11">
+                                  <div class="col-xs-8 col-md-11">
                                       <div>
                                           <a href="">
                                               <?php echo $result["user"]?></a>

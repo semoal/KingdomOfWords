@@ -16,4 +16,4 @@ define("DEFAULT_ROLE", "member");
  * 
  * If you are using an HTTPS connection, change this to TRUE
  */
-define("SECURE", FALSE);  
+define("SECURE", TRUE);  

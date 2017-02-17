@@ -11,10 +11,10 @@ if (isset($_POST['user_or_email'], $_POST['p'])) {
     if (login($user_or_email, $password, $mysqli) == true) {
         //Comprobar si el usuario está validado
         if(check_validate($user_or_email,$mysqli)){
-            header("Location: ../profile");
+            header("Location: ../views/profile");
             exit();
         }else{
-            header('Location: ../includes/logout');
+            header('Location: ../controllers/logout');
             
             exit();
         }

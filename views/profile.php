@@ -1,27 +1,27 @@
 <?php 
    
-   include_once 'includes/db_connect.php';
-   include_once 'includes/functions.php';
-   include_once 'includes/profile_checker.php';
+   include_once '../controllers/db_connect.php';
+   include_once '../controllers/functions.php';
+   include_once '../controllers/profile_checker.php';
    sec_session_start();
 ?>
 <!DOCTYPE html>
 <html>
    <head>
       <meta charset="UTF-8">
-      <link rel="icon" type="image/png" href="img/kingdomLogo.png">
+      <link rel="icon" type="image/png" href="../img/kingdomLogo.png">
       <meta name="theme-color" content="#1e2b3a" />
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
       <!-- JavaScript -->
-      <script type="text/JavaScript" src="js/sha512.js"></script> 
-      <script type="text/JavaScript" src="js/forms.js"></script> 
+      <script type="text/JavaScript" src="../js/sha512.js"></script> 
+      <script type="text/JavaScript" src="../js/forms.js"></script> 
 
       <!-- Google Login JS 
       <script src="https://apis.google.com/js/platform.js" async defer></script> -->
       <!-- CSS -->
       <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-      <link rel="stylesheet" type="text/css" href="styles/style.css">
-      <link rel="stylesheet" type="text/css" href="styles/modal.css">
+      <link rel="stylesheet" type="text/css" href="../styles/style.css">
+      <link rel="stylesheet" type="text/css" href="../styles/modal.css">
       <!-- Jquery & Bootstrap CDN'S --> 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -36,7 +36,7 @@
            padding: 10px;
         }
    </style>
-        <link rel="stylesheet" type="text/css" href="styles/profile.css">
+        <link rel="stylesheet" type="text/css" href="../styles/profile.css">
    </head>
    
    <body>
@@ -47,8 +47,8 @@
          <!-- All view --> 
          <div class="container">
             <div class="navbar-header hidden-xs">
-               <a class="navbar-brand">
-                  <img style="margin-top:-15px;" src="img/logo.png" width=150px alt="logo" class="img-thumbnail">
+               <a href="profile" class="navbar-brand">
+                  <img style="margin-top:-15px;" src="../img/logo.png" width=150px alt="logo" class="img-thumbnail">
                </a>
             </div>
             <ul class="nav navbar-nav navbar-right mobile-bar">
@@ -59,7 +59,7 @@
                   </a>
                </li>
                <li>
-                  <a href="new_play">
+                  <a href="../controllers/new_play">
                   <span class="menu-icon fa fa-gamepad"></span>
                   Juega
                   </a>
@@ -79,7 +79,7 @@
                   </a>
                </li>
                <li>
-                  <a href="includes/logout">
+                  <a href="../controllers/logout">
                   <span class="menu-icon fa fa-sign-out" aria-hidden="true">
                   </span>
                   Salir
@@ -110,7 +110,7 @@
                               <h4 class="modal-title">Introduce una URL</h4>
                            </div>
                            <div class="modal-body">
-                              <form action="upload" class="form-group form-login" method="post" name="pic_form"> 			
+                              <form action="../controllers/upload" class="form-group form-login" method="post" name="pic_form"> 			
                                  Url de la imagen:<input type="text" name="pic_form" class="form-control" required />
                                  <input type="submit" value="Sube" class="btn btn-md btn-login" onclick="" /> 
                               </form>

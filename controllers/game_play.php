@@ -1,7 +1,7 @@
 <?php 
-    include_once 'includes/db_connect.php';
-    include_once 'includes/functions.php';
-    include_once 'includes/profile_checker.php';
+    include_once 'db_connect.php';
+    include_once 'functions.php';
+    include_once 'profile_checker.php';
     /**
      * Clase que se llamará cada vez que se juega
      */

@@ -1,8 +1,8 @@
 <?php 
-   include_once 'includes/db_connect.php';
-   include_once 'includes/functions.php';
-   include_once 'includes/random_number.php';
-   include_once 'includes/game_play.php';
+   include_once '../controllers/db_connect.php';
+   include_once '../controllers/functions.php';
+   include_once '../controllers/random_number.php';
+   include_once '../controllers/game_play.php';
    sec_session_start();
    
       
@@ -52,18 +52,18 @@
    <head>
       <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
       <meta name="theme-color" content="#1e2b3a" />
-      <link rel="icon" type="image/png" href="img/kingdomLogo.png">
+      <link rel="icon" type="image/png" href="../img/kingdomLogo.png">
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
       <!-- CSS --> 
       <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-      <link rel="stylesheet" type="text/css" href="styles/profile.css">
-      <link rel="stylesheet" type="text/css" href="styles/preguntas.css">
-      <link rel="stylesheet" type="text/css" href="alerts/sweetalert.css">
-      <link rel="stylesheet" type="text/css" href="styles/style.css">
+      <link rel="stylesheet" type="text/css" href="../styles/profile.css">
+      <link rel="stylesheet" type="text/css" href="../styles/preguntas.css">
+      <link rel="stylesheet" type="text/css" href="../alerts/sweetalert.css">
+      <link rel="stylesheet" type="text/css" href="../styles/style.css">
       <!-- Jquery & Bootstrap CDN'S --> 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-      <script src="alerts/sweetalert.min.js"></script>
+      <script src="../alerts/sweetalert.min.js"></script>
       
       <?php if (login_check($mysqli) == true){ ?>
          <?php if ($random!=false){
@@ -138,8 +138,8 @@
          <!-- All view --> 
          <div class="container">
             <div class="navbar-header hidden-xs">
-               <a class="navbar-brand" href="index?">
-                  <img style="margin-top:-15px;" src="img/logo.png" width=150px alt="logo" class="img-thumbnail">
+               <a href="profile" class="navbar-brand">
+                  <img style="margin-top:-15px;" src="../img/logo.png" width=150px alt="logo" class="img-thumbnail">
                </a>
             </div>
             <ul class="nav navbar-nav navbar-right mobile-bar">
@@ -150,7 +150,7 @@
                   </a>
                </li>
                <li>
-                  <a href="new_play">
+                  <a href="../controllers/new_play">
                   <span class="menu-icon fa fa-gamepad"></span>
                   Juega
                   </a>
@@ -170,7 +170,7 @@
                   </a>
                </li>
                <li>
-                  <a href="includes/logout">
+                  <a href="../controllers/logout">
                   <span class="menu-icon fa fa-sign-out" aria-hidden="true">
                   </span>
                   Salir

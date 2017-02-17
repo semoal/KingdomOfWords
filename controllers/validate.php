@@ -1,12 +1,12 @@
 <?php
-   include_once 'includes/db_connect.php';
-   include_once 'includes/functions.php';
+   include_once 'controllers/db_connect.php';
+   include_once 'controllers/functions.php';
    sec_session_start();
 
    if(isset($_POST["username"])){
       $query='INSERT INTO validate (username) VALUES ("'.$_POST["username"].'")';
       $mysqli->query($query);
-      header("Location: index");
+      header("Location: ../index");
    }
     
   
@@ -16,13 +16,12 @@
    <head>
       <!-- Meta charset --> 
       <meta charset="UTF-8">
-      <meta name="google-signin-scope" content="profile email">
       <meta name="theme-color" content="#1e2b3a" />
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
       <!-- CSS -->
       <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-      <link rel="stylesheet" type="text/css" href="styles/style.css">
-      <link rel="stylesheet" type="text/css" href="styles/modal.css">
+      <link rel="stylesheet" type="text/css" href="../styles/style.css">
+      <link rel="stylesheet" type="text/css" href="../styles/modal.css">
 
       <!-- Jquery & Bootstrap CDN'S --> 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

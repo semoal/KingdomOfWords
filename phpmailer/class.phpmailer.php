@@ -503,7 +503,7 @@ class PHPMailer
 
     /**
      * An array of all kinds of addresses.
-     * Includes all of $to, $cc, $bcc
+     * controllers all of $to, $cc, $bcc
      * @var array
      * @access protected
      * @see PHPMailer::$to @see PHPMailer::$cc @see PHPMailer::$bcc
@@ -2167,7 +2167,7 @@ class PHPMailer
 
     /**
      * Returns the whole MIME message.
-     * Includes complete headers and body.
+     * controllers complete headers and body.
      * Only valid post preSend().
      * @see PHPMailer::preSend()
      * @access public

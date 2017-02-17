@@ -1,7 +1,7 @@
 <?php
-   include_once 'includes/db_connect.php';
-   include_once 'includes/functions.php';
-   //include_once 'includes/register.inc';
+   include_once 'controllers/db_connect.php';
+   include_once 'controllers/functions.php';
+   //include_once 'controllers/register.inc';
    sec_session_start();
 ?>
 <!DOCTYPE html>
@@ -15,8 +15,8 @@
       <!-- <meta name="google-signin-client_id" content="831754447629-7n6vnv2klk5u88ekppbtt3dksk5jr2se.apps.googleusercontent.com">  -->
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
       <!-- JavaScript -->
-      <script type="text/JavaScript" src="js/sha512.js"></script> 
-      <script type="text/JavaScript" src="js/forms.js"></script> 
+      <script type="text/JavaScript" src="/js/sha512.js"></script> 
+      <script type="text/JavaScript" src="/js/forms.js"></script> 
 
       <!-- Google Login JS 
       <script src="https://apis.google.com/js/platform.js" async defer></script> -->
@@ -69,7 +69,7 @@
                               <h4 class="modal-title">Iniciar sesión</h4>
                            </div>
                            <div class="modal-body">
-                              <form action="includes/process_login" class="form-group form-login" method="post" name="login_form"> 			
+                              <form action="/controllers/process_login" class="form-group form-login" method="post" name="login_form"> 			
                                  Usuario o Email: <input type="text" name="user_or_email" class="form-control" required />
                                  Contraseña: <input type="password" name="password" id="password" class="form-control"/>
                                  <input type="submit" value="Login" class="btn btn-md btn-login" onclick="formhash(this.form, this.form.password);" /> 
@@ -77,9 +77,6 @@
                               <a style="cursor:pointer;"> 
                               <span data-toggle="modal" data-target="#registerModal">Si no tienes cuenta registrate aquí</span>
                               </a>
-                              <!--  Muestra si el usuario ha iniciado sesión o no
-                              <?php echo $logged ?>
-                              --> 
                            </div>
                         </div>
                      </div>
@@ -98,7 +95,7 @@
                            <div class="modal-body">
                               <div class="form-group form-login"></div>
                               <div id="getting-started"></div>
-                              <form method="post" class="form-group" name="registration_form" action="includes/register.inc">
+                              <form method="post" class="form-group" name="registration_form" action="controllers/register.inc">
                                  Usuario: <input class="form-control" type='text' name='username' id='username' /><br>
                                  Email: <input class="form-control" type="text" name="email" id="email" /><br>
                                  Contraseña: <input class="form-control" type="password" name="password" id="password"/><br>
@@ -123,8 +120,8 @@
                   <div class="col-md">
                      <img src="img/kingdomLogo.png" alt="logo" class="img-thumbnail">
                   </div>
-                  <a href="profile"><button type="button" id="" class="btn btn-blueword btn-md btn-block">Ir a perfil</button>  </a><br>
-                  <a href="includes/logout"> <button type="button" id="" class="btn btn-blueword btn-md btn-block">Cerrar sesión</button> </a>
+                  <a href="/views/profile"><button type="button" id="" class="btn btn-blueword btn-md btn-block">Ir a perfil</button>  </a><br>
+                  <a href="/controllers/logout"> <button type="button" id="" class="btn btn-blueword btn-md btn-block">Cerrar sesión</button> </a>
                </div>
             </div>
          </div>

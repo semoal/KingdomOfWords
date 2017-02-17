@@ -17,6 +17,13 @@ body {
 /*Añadimos un background al fondo con una opacidad bajada */
 body:after {
     content: "";
+        top:0px; bottom: 0px;
+    height: 100%;
+    background-repeat: repeat;
+    position: absolute;
+    overflow-x: scroll;
+        overflow-y: scroll;
+
     background: url('https://pre02.deviantart.net/b263/th/pre/f/2016/144/8/f/stratosphere_by_atlas091-da3mtnb.jpg') center no-repeat fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
