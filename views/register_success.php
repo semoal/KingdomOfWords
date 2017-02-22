@@ -1,12 +1,9 @@
 <?php
     session_start();
     date_default_timezone_set('Europe/Madrid');
-    require_once('../phpmailer/PHPMailerAutoload.php');
-    $email=$_SESSION["email"];
+    require_once('PHPMailerAutoload.php');
     $mail = new PHPMailer;
     $mail->isSMTP();
-    //$mail->SMTPDebug = 2; //cambiar al 0 cuando o pasemos a prod
-    //$mail->Debugoutput = 'html';
     $mail->Host = 'smtp.gmail.com';
     $mail->Port = 587;
     $mail->SMTPSecure = 'tls';
@@ -14,9 +11,9 @@
     $mail->Username = "welcome.kingdomwords@gmail.com";
     $mail->Password = "adminpassword.1";
     $mail->setFrom('welcome.kingdomwords@gmail.com', 'Kingdom of Words');
-    $mail->addAddress($email); //EMAIL GET POST
+    $mail->addAddress($_SESSION["email"]); //EMAIL GET POST
     $mail->Subject = 'Bienvenido a Kingdom of Words';
-    $mail->msgHTML(file_get_contents('../phpmailer/emailTemplate.html'), dirname(__FILE__));
+    $mail->msgHTML(file_get_contents('emailTemplate.html'), dirname(__FILE__));
     $mail->AltBody = 'Este correo ha sigo generado automaticamente.';
     $mail->send();
 ?>

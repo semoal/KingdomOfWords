@@ -22,21 +22,40 @@
       <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <link rel="stylesheet" type="text/css" href="../styles/style.css">
       <link rel="stylesheet" type="text/css" href="../styles/modal.css">
+      <link rel="stylesheet" type="text/css" href="../styles/profile.css">
       <!-- Jquery & Bootstrap CDN'S --> 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
       
       <?php if (login_check($mysqli) == true) : ?>
       <title>Bienvenido <?php echo htmlentities($_SESSION['username']); ?></title>
-      <style type="text/css">
-       .label-level {
-           position: absolute;
-           margin-left: 10px;
-           font-size: 20px !important;
-           padding: 10px;
+      <style> 
+      .profile-header-container {
+            margin: 0 auto;
+            text-align: center;
         }
-   </style>
-        <link rel="stylesheet" type="text/css" href="../styles/profile.css">
+        .profile-header-img > img.img-circle {
+            width: 150px;
+            height: 150px;
+            border: 2px inset #ffcc00;
+        }
+        .profile-header {
+            margin-top: 43px;
+        }
+        .rank-label-container {
+            margin-top: -19px;
+            /* z-index: 1000; */
+            
+            text-align: center;
+            margin-left: -10%;
+            cursor: pointer;
+        }
+        .label.label-default.rank-label {
+            background-color: #ffcc00;
+            padding: 5px 10px 5px 10px;
+            border-radius: 27px;
+        }
+      </style>
    </head>
    
    <body>
@@ -98,8 +117,14 @@
       <div class="row">
           <div class="col-sm-2">
              <a class="pull-left">
-                 <img style="width:150px;height:150px;background-size:cover;max-width:150px;min-width:150px;max-height:150px;min-height:150px;"title="profile image" class="img-circle img-responsive img-logo-pic" src="<?php echo $picture?>">
-                <button type="button" id="picButton" class="btn btn-blueword btn-md btn-block btn-xs" data-toggle="modal" data-target="#pic_Modal">Cambia</button>
+                <div class="profile-header-container">   
+        		    <div class="profile-header-img">
+                        <img class="img-circle" src="<?php echo $picture?>" />
+                        <div class="rank-label-container">
+                            <span class="label label-default rank-label" data-toggle="modal" data-target="#pic_Modal">Cambia</span>
+                        </div>
+                    </div>
+                </div> 
                  <!-- Profile image uploader -->
                   <div class="modal fade" id="pic_Modal" role="dialog">
                      <div class="modal-dialog">
@@ -298,7 +323,7 @@
       </div>
       <?php else : ?>
       <p>
-         <span class="error">No estas autorizado para entrar en este apartado</span> Por favor <a href="index">inicia sesión</a>.
+         <span class="error">No estas autorizado para entrar en este apartado</span> Por favor <a href="../index">inicia sesión</a>.
       </p>
       <?php endif; ?>
    </body>

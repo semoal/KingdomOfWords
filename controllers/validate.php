@@ -1,6 +1,6 @@
 <?php
-   include_once 'controllers/db_connect.php';
-   include_once 'controllers/functions.php';
+   include_once 'db_connect.php';
+   include_once 'functions.php';
    sec_session_start();
 
    if(isset($_POST["username"])){
@@ -34,7 +34,7 @@
             <div class="col-md-4 col-md-offset-4" style="text-align:center;">
                <div class="container-middle">
                   <div class="col-md">
-                     <img src="img/kingdomLogo.png" alt="logo" class="img-thumbnail">
+                     <img src="../img/kingdomLogo.png" alt="logo" class="img-thumbnail">
                   </div>
                   <button type="button" id="loginButton" class="btn btn-blueword btn-md btn-block" data-toggle="modal" data-target="#validateModal">Validar tu cuenta</button><br>
                   <!-- Validate Modal -->

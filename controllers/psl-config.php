@@ -3,8 +3,8 @@
  * These are the database login details
  */
 define("HOST", "localhost"); 			// The host you want to connect to. 
-define("USER", "root"); 			// The database username. 
-define("PASSWORD", "admin"); 	// The database password. 
+define("USER", "kiatoski"); 			// The database username. 
+define("PASSWORD", "Jamonero.1"); 	// The database password. 
 define("DATABASE", "KingdomWords");             // The database name.
 
 define("CAN_REGISTER", "any");

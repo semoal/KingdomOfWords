@@ -4,6 +4,9 @@ include_once 'psl-config.php';
 session_start();
 
 $email=$_POST['email'];
+if(isset($email)){
+	$_SESSION['email'] = $email;
+}
 $error_msg = "";
 if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
     // Sanitize and validate the data passed in
@@ -62,10 +65,11 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
         }
         $initLevel=1;
         $initAns=0;
+        $initLifes = 5;
         $initGAns=0;
         $initPic="https://kingdomwords-kiatoski.c9users.io/img/default_avatar.png";
-        if($insert_profile=$mysqli->prepare("INSERT INTO profile_info (user, level, gooAns, answers, picture) VALUES (?, ?, ?, ?, ?)")) {
-            $insert_profile->bind_param('siiis', $username, $initLevel, $initGAns, $initAns, $initPic);
+        if($insert_profile=$mysqli->prepare("INSERT INTO profile_info (user, level, gooAns, answers, picture,life) VALUES (?, ?, ?, ?, ?,?)")) {
+            $insert_profile->bind_param('siiisi', $username, $initLevel, $initGAns, $initAns, $initPic,$initLifes);
             if (!$insert_profile->execute()) {
                 header('Location: ../error?err=Registration failure: INSERT PROFILE');
                 exit();
