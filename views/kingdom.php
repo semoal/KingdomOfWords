@@ -5,6 +5,8 @@
     include_once '../controllers/profile_checker.php';
     include_once '../controllers/group_checker.php';
     sec_session_start();
+    
+    
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,10 +20,26 @@
       <link rel="stylesheet" type="text/css" href="../styles/style.css">
       <link rel="stylesheet" type="text/css" href="../styles/modal.css">
       <link rel="stylesheet" type="text/css" href="../styles/ranking.css">
+      <link rel="stylesheet" type="text/css" href="../alerts/sweetalert.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
 
       <!-- Jquery & Bootstrap CDN'S --> 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src="../alerts/sweetalert.min.js"></script>
+      <script type="text/javascript">
+         function errorMessage() {
+            swal({
+              title: "Error!",
+              text: "El grupo tiene contraseña, inicia sesión",
+              type: "error",
+              confirmButtonText: "Unete al grupo"
+            },
+            function (){
+              $('#init_Grupo').modal();
+            });
+         }
+      </script>      
       <!-- Titulo de la página -->
       <?php if (login_check($mysqli) == true) : ?>
       <title>Bienvenido <?php echo htmlentities($_SESSION['username']); ?></title>
@@ -38,6 +56,14 @@
    }
    </style>
    <body>
+      
+      <?php 
+         if(isset($_REQUEST["err"])){
+             $err=$_REQUEST["err"];
+             echo "<script type='text/javascript'>errorMessage();</script>";
+         }
+      ?>
+      
       <div class="navbar-more-overlay"> </div>
       <!-- Navbar --> 
       <nav class="navbar navbar-inverse navbar-fixed-top animate">
@@ -124,7 +150,7 @@
                      <div class="col-sm-2">
                       <a class="pull-left">
                      <div class="profile-header-container">   
-           		         <div class="profile-header-img">
+                       <div class="profile-header-img">
                            <img class="img-responsive" src="<?php echo $pictureGrupo?>" />
                               <div class="rank-label-container">
                                   <span class="label label-default rank-label" data-toggle="modal" data-target="#pic_Modal">Cambia</span>
@@ -141,7 +167,7 @@
                               <h4 class="modal-title">Introduce una URL</h4>
                            </div>
                            <div class="modal-body">
-                              <form action="../controllers/changeGroup" class="form-group form-login" method="GET" name="pic_form"> 			
+                              <form action="../controllers/changeGroup" class="form-group form-login" method="GET" name="pic_form">       
                                  Url de la imagen:<input type="text" name="pic_group" class="form-control" required />
                                  <input type="submit" value="Sube" class="btn btn-md btn-login" onclick="" /> 
                               </form>
@@ -164,8 +190,8 @@
                            <div class="col-md-3">
                               <div class="well">
                                  <h4 class="text-success">
-                                    <span class="label label-success pull-right">Grupo</span>
-                                    <?php echo $nombreGrupo ?>
+                                    <span class="label label-success pull-right"><?php echo $nombreGrupo ?></span>
+                                    Grupo
                                  </h4>
                               </div>
                            </div>
@@ -174,22 +200,23 @@
                                  <h4 class="text-success"><span class="label label-success pull-right">+ <?php echo $totalMiembros?></span> Cantidad de miembros </h4>
                               </div>
                            </div>
+                           <div class="col-md-3">
+                              <div class="well">
+                                 <h4 class="text-success"><span class="label label-success pull-right"> 
+                                 <?php echo $bestMember["user"]?>
+                                 </span> Mejor jugador </h4>
+                              </div>
+                           </div>
                         </div>
-                        <!--/row-->    
                      </div>
-                     <!--/col-12-->
                   </div>
-                  <!--/row-->
                </div>
-               <!--/pane stats-->
                <!--pane rev-->
                <div class="tab-pane" id="revenue">
                   <div class="well well-sm text-center">
                      <?php 
-                         $query = 'SELECT p.user, p.picture, p.answers, p.gooAns, p.level FROM profile_info AS p INNER JOIN groups AS g ON g.idGrupos=p.idGroup WHERE p.idGroup = '.$idGroups.'';
+                         $query = 'SELECT p.user, p.picture, p.answers, p.gooAns, p.level FROM profile_info AS p INNER JOIN groups AS g ON g.idGrupos=p.idGroup WHERE p.idGroup = '.$idGroups.' ORDER BY p.level DESC';
                          $members= $mysqli->query($query);
-                         
-                       
                        while($result=$members->fetch_assoc()){ 
                      ?>
                      <div>
@@ -204,6 +231,9 @@
                                                <div>
                                                    <a href="">
                                                        <?php echo $result["user"]?></a>
+                                                       <?php if($best){?>
+                                                       <img src="../img/knight.png" height=30 width=25></img>
+                                                       <?php   }  ?>
                                                </div>
                                                <div class="action">
                                                    Preguntas contestadas:
@@ -230,7 +260,11 @@
                            
                        </div>
                    </div>
-                     <?php } ?>
+                     <?php 
+                        if($best){
+                           $best=false;
+                        }
+                     } ?>
                   </div>
                </div>
                <!--/pane rev-->
@@ -240,8 +274,8 @@
    }else{
 ?> 
 <div class="container">
-   <div class="row">
-      <div class="col-md-4 col-md-offset-4" style="text-align:center;">
+      <!-- Inicio de sesion y creación de grupos -->
+      <div class="col-md-4" style="text-align:center;">
          <div class="container-middle">
             <div class="col-md">
                <img src="../img/kingdomLogo.png" alt="logo" class="img-thumbnail">
@@ -257,7 +291,7 @@
                         <h4 class="modal-title">Inicia sesión en un grupo</h4>
                      </div>
                      <div class="modal-body">
-                        <form action="../controllers/kingdom_login" class="form-group form-login" method="post" name="pic_form"> 			
+                        <form action="../controllers/kingdom_login" class="form-group form-login" method="post" name="pic_form">      
                            Nombre grupo: <input type="text" name="user_group" class="form-control" required />
                            Contraseña: <input class="form-control" type="password" name="password_group" id="password"/><br>
                            <input type="submit" value="¡Entra!" class="btn btn-md btn-login" onclick="" /> 
@@ -288,7 +322,44 @@
             </div>
          </div>
       </div>
-   </div>
+      
+      <!--  Lista para grupos a los que se puede unirse -->  
+      <div class="col-md-4 col-md-offset-4"> 
+      <h1> Últimos grupos: </h1>
+      <?php 
+         while($result=$groupsResults->fetch_assoc()){
+           $idGroup=$result["idGrupos"];
+           $queryCantidadMiembros="SELECT * FROM profile_info WHERE idGroup='".$idGroup."'";
+           $results=$mysqli->query($queryCantidadMiembros);
+           $totalMiembros=$results->num_rows;
+           ?>
+         <div class="list-group">
+          <a href="../controllers/kingdom_login.php?<?php echo "user_group=".$result["nombre"]?>&&password_group=''" class="list-group-item">
+              <img style="width:30px;height:30px;border-radius:50%;" class="img-list" src="<?php echo $result["picture"]?>">
+              <span id="nombreGrupo"><?php echo $result["nombre"]; ?></span>
+              <?php 
+               $password=hash('sha512', "" . $result["salt"]);
+                if($password==$result["password"]){
+              ?>
+                <span style="width:15%" class="label label-success pull-right"> <?php echo $totalMiembros; ?>
+                  <i class="fa fa-unlock fa-2x pull-right" aria-hidden="true"></i>
+                </span>
+              <?php 
+                }else{
+              ?>
+               <span style="width:15%" class="label label-danger pull-right"> <?php echo $totalMiembros; ?>
+                  <i class="fa fa-lock fa-2x pull-right" aria-hidden="true"></i>
+                </span>
+              <?php 
+                }
+              ?>
+              
+          </a>
+         </div>
+         <?php 
+            }
+         ?>
+      </div>
 </div>
         <?php
             }

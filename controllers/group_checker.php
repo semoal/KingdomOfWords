@@ -30,13 +30,19 @@ sec_session_start();
     }
     
     if($idGroup != null){
-         $prep_stmt = 'SELECT * FROM  profile_info AS p INNER JOIN groups AS g ON g.idGrupos=p.idGroup WHERE p.idGroup="'.$idGroup.'"';
+         $prep_stmt = 'SELECT * FROM  profile_info AS p INNER JOIN groups AS g ON g.idGrupos=p.idGroup WHERE p.idGroup="'.$idGroup.'" ORDER BY p.level DESC';
             $results=$mysqli->query($prep_stmt);
             $numMembers=$results->num_rows;
+            $best = true;
         while($result=$results->fetch_assoc()){
+            if($best){
+                $bestMember=$result;
+                $best=false;
+            }
             $gPregCont+=$result["answers"];
             $gPregCorr+=$result["gooAns"];
         }
+        $best = true;
     }
     
     //Metodo que nos permite conocer las preguntas restantes del grupo
@@ -57,4 +63,24 @@ sec_session_start();
             $correctas=100;
         }
     }
+    /**
+     * 
+     * 
+     */
+     
+    $query = 'SELECT nombre,password,salt,picture FROM groups';
+    $groupsResults=$mysqli->query($query);
+    
+    /*while($result=$groupsResults->fetch_assoc()){
+        $password=hash('sha512', "" . $result["salt"]);
+        echo "<img src='".$result["picture"]."' height=20 width=20></img>";
+        if($password==$result["password"]){
+            echo $result["nombre"]." is null<br>";
+        }else{
+            echo $result["nombre"]." it's locked<br>";
+        }
+    }*/
+    
+    
+    
 ?>

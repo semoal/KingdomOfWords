@@ -8,16 +8,15 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <meta charset="UTF-8">
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <link rel="icon" type="image/png" href="../img/kingdomLogo.png">
       <meta name="theme-color" content="#1e2b3a" />
       <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
       <!-- JavaScript -->
       <script type="text/JavaScript" src="../js/sha512.js"></script> 
-      <script type="text/JavaScript" src="../js/forms.js"></script> 
+      <script type="text/JavaScript" src="../js/forms.js"></script>
+      <script type="text/JavaScript" src="../js/platformDetection.js"></script> 
 
-      <!-- Google Login JS 
-      <script src="https://apis.google.com/js/platform.js" async defer></script> -->
       <!-- CSS -->
       <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <link rel="stylesheet" type="text/css" href="../styles/style.css">
@@ -26,7 +25,6 @@
       <!-- Jquery & Bootstrap CDN'S --> 
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-      
       <?php if (login_check($mysqli) == true) : ?>
       <title>Bienvenido <?php echo htmlentities($_SESSION['username']); ?></title>
       <style> 
@@ -118,7 +116,7 @@
           <div class="col-sm-2">
              <a class="pull-left">
                 <div class="profile-header-container">   
-        		    <div class="profile-header-img">
+                <div class="profile-header-img">
                         <img class="img-circle" src="<?php echo $picture?>" />
                         <div class="rank-label-container">
                             <span class="label label-default rank-label" data-toggle="modal" data-target="#pic_Modal">Cambia</span>
@@ -135,7 +133,7 @@
                               <h4 class="modal-title">Introduce una URL</h4>
                            </div>
                            <div class="modal-body">
-                              <form action="../controllers/upload" class="form-group form-login" method="post" name="pic_form"> 			
+                              <form action="../controllers/upload" class="form-group form-login" method="post" name="pic_form">       
                                  Url de la imagen:<input type="text" name="pic_form" class="form-control" required />
                                  <input type="submit" value="Sube" class="btn btn-md btn-login" onclick="" /> 
                               </form>
@@ -205,6 +203,12 @@
                   ?>
               </li>
             </ul>
+            <a href="https://github.com/semoal/KingdomDesktop/releases/download/v1.0/KingdomDesktop-mac-x64.zip"> 
+                <img id="mac" style="display:none;" class="img-responsive" src="http://www.iostipsandtricks.biz/wp-content/uploads/2015/10/mac-app-store-664.png" />
+            </a>
+            <a href="https://github.com/semoal/KingdomDesktop/releases/download/v1.0/KingdomDesktop-win32-x64.zip">
+                <img id="windows" style="display:none;" class="img-responsive" src="http://www.opera.com/blogs/news/wp-content/uploads/sites/2/2014/09/clickable-link-pic.jpg" />
+            </a>
          </div>
          <!--col medio-->
          <div class="col-sm-9" contenteditable="false" style="">
@@ -327,4 +331,15 @@
       </p>
       <?php endif; ?>
    </body>
+   <script type="text/javascript">
+    var mac = navigator.platform.match(/(Mac)/i) ? true : false;
+    var windows = navigator.platform.match(/(Windows)/i) ? true : false;
+    
+    if (mac) {
+      $('#mac').show();
+    }else if(windows){
+      $('#windows').show();
+    }else {
+    }
+   </script>
 </html>

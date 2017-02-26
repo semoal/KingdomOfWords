@@ -32,7 +32,11 @@ if (isset($_POST['username_group'], $_POST['password_group'])) {
     }
     
     
-    
+    $initPic = $_POST['pic_group'];
+    if(!is_array(getimagesize($initPic))){
+        $initPic="https://kingdomwords-kiatoski.c9users.io/img/default_avatar.png";
+        
+    }
     if (empty($error_msg)) {
         // Create a random salt
         $random_salt = hash('sha512', uniqid(openssl_random_pseudo_bytes(16), TRUE));
@@ -40,7 +44,7 @@ if (isset($_POST['username_group'], $_POST['password_group'])) {
         // Create salted password 
         $password = hash('sha512', $password . $random_salt);
         
-        $initPic="https://kingdomwords-kiatoski.c9users.io/img/default_avatar.png";
+        
         // Insert the new group into the database 
         if ($insert_stmt = $mysqli->prepare("INSERT INTO groups (nombre, password,picture,salt) VALUES (?, ?, ?, ?)")) {
             $insert_stmt->bind_param('ssss', $group_name, $password,$initPic,$random_salt);
