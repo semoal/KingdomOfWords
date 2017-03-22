@@ -102,6 +102,13 @@
                   Marcadores
                   </a>
                </li>
+                               <li>
+                  <a href="chat">
+                  <span class="menu-icon fa fa-wechat" aria-hidden="true">
+                  </span>
+                  Chat
+                  </a>
+               </li>
                <li>
                   <a href="../controllers/logout">
                   <span class="menu-icon fa fa-sign-out" aria-hidden="true">
@@ -329,8 +336,11 @@
       <?php 
          while($result=$groupsResults->fetch_assoc()){
            $idGroup=$result["idGrupos"];
+			 
            $queryCantidadMiembros="SELECT * FROM profile_info WHERE idGroup='".$idGroup."'";
+			 
            $results=$mysqli->query($queryCantidadMiembros);
+			 
            $totalMiembros=$results->num_rows;
            ?>
          <div class="list-group">

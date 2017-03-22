@@ -67,11 +67,11 @@
             }else{
                 //PREGUNTA INCORRECTA DENTRO DEL IF
                 $_SESSION["combo"]=100;
-                $query = "UPDATE profile_info SET answers=answers+?, points=points-? WHERE user=?";
+                $query = "UPDATE profile_info SET points=points-? WHERE user=?";
                 $updateAnswers = $mysqli->prepare($query);
                 $points=50;
                 if($updateAnswers){
-                   $updateAnswers->bind_param('iis',$answers=1,$points,$_SESSION["username"]);
+                   $updateAnswers->bind_param('is',$points,$_SESSION["username"]);
                    $updateAnswers->execute();
                 }
                 
@@ -98,7 +98,7 @@
             }
                 //PREGUNTA INCORRECTA FUERA DEL IF
                 
-                
+                //Actualiza las ultimas preguntas contestadas
                 $query = "UPDATE profile_info SET lastQuestion2=lastQuestion WHERE user=?";
                 $updateLastQuestion2 = $mysqli->prepare($query);
                 
@@ -114,6 +114,8 @@
                     $updateLastQuestion->bind_param('ss',$this->correct,$_SESSION["username"]);
                    $updateLastQuestion->execute();
                 }
+                
+                //Si fallas 3 seguidas la cagas y te quedas con una vida menos
                 if($_SESSION['erroneas']==3){
                     $query = "UPDATE profile_info SET life=life-? WHERE user=?";
                     $updateLife = $mysqli->prepare($query);
@@ -122,6 +124,15 @@
                        $updateLife->execute();
                        $_SESSION['erroneas'] = 0;
                     }
+                }
+                
+                //Te suma 1 a las preguntas contestadas
+                $query = "UPDATE profile_info SET answers=answers+? WHERE user=?";
+                $updateAnswers = $mysqli->prepare($query);
+                $points=50;
+                if($updateAnswers){
+                   $updateAnswers->bind_param('is',$answers=1,$_SESSION["username"]);
+                   $updateAnswers->execute();
                 }
                 
         }

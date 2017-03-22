@@ -68,7 +68,7 @@ sec_session_start();
      * 
      */
      
-    $query = 'SELECT nombre,password,salt,picture FROM groups';
+    $query = 'SELECT idGrupos,nombre,password,salt,picture FROM groups';
     $groupsResults=$mysqli->query($query);
     
     /*while($result=$groupsResults->fetch_assoc()){

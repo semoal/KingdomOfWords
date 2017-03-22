@@ -78,6 +78,13 @@
                   Marcadores
                   </a>
                </li>
+                <li>
+                  <a href="chat">
+                  <span class="menu-icon fa fa-wechat" aria-hidden="true">
+                  </span>
+                  Chat
+                  </a>
+               </li>
                <li>
                   <a href="../controllers/logout">
                   <span class="menu-icon fa fa-sign-out" aria-hidden="true">
